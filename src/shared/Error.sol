@@ -7,6 +7,8 @@ library Errors {
 
     error ZeroAddressNotAllowed();
 
+    error NotThis();
+
     error NotAuthorized(address caller);
 
     error UnsupportedInterface();

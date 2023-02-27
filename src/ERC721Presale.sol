@@ -1,14 +1,12 @@
 // SPDX-License-Identifier: MIT
 pragma solidity =0.8.19;
 
-// import {IERC721} from "@openzeppelin/contracts/token/ERC721/IERC721.sol";
 import {IERC165} from "@openzeppelin/contracts/interfaces/IERC165.sol";
 import {IERC2981} from "@openzeppelin/contracts/interfaces/IERC2981.sol";
 
 import {Errors} from "@main/shared/Error.sol";
 import {ERC721} from "@openzeppelin/contracts/token/ERC721/ERC721.sol";
 import {PresaleRoles} from "@main/roles/PresaleRoles.sol";
-
 
 contract NFTTokenTest is IERC2981, ERC721, PresaleRoles {
 
@@ -55,13 +53,13 @@ contract NFTTokenTest is IERC2981, ERC721, PresaleRoles {
     }
 
     /**
-     * @notice Safely mints `tokenId` and transfers it to `to`.
-     * @param to account to for ERC721 to send
-     * @param tokenId token id
+     * @notice mint one of NFT if not already minted. Can only be called by `minter`.
+     * @param to address that will receive the Bleep.
+     * @param tokenId token id which represent NFT
     **/
     function safeMint(address to, uint256 tokenId) external onlyMinter {
-        // uint256 tokenId = _tokenIdCounter.current();
-        // _tokenIdCounter.increment();
+        if (to == address(this)) revert Errors.NotThis();
+
         _safeMint(to, tokenId);
     }
 
@@ -80,6 +78,10 @@ contract NFTTokenTest is IERC2981, ERC721, PresaleRoles {
         return super.supportsInterface(id) || id == 0x2a55205a; /// 0x2a55205a is ERC2981 (royalty standard)
     }
 
+    function _baseURI() internal pure override(ERC721) returns (string memory) {
+        return "ipfs";
+    }
+
     /**
      * @notice Called with the sale price to determine how much royalty is owed and to whom.
      * @param id - the token queried for royalty information.
@@ -95,8 +97,6 @@ contract NFTTokenTest is IERC2981, ERC721, PresaleRoles {
         receiver = _royalty.receiver;
         royaltyAmount = (salePrice * uint256(_royalty.per10Thousands)) / 10000;
     }
-
-
 
 }
 
