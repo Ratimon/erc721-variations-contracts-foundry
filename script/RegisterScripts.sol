@@ -1,5 +1,5 @@
 // SPDX-License-Identifier: UNLICENSED
-pragma solidity =0.8.17;
+pragma solidity =0.8.19;
 
 import {Script, console} from "@forge-std/Script.sol";
 import {EnumerableSet, Uint256Set} from "./lib/EnumerableSet.sol";
