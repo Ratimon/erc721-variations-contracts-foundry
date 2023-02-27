@@ -2,13 +2,15 @@
 pragma solidity =0.8.19;
 
 // import {IERC721} from "@openzeppelin/contracts/token/ERC721/IERC721.sol";
+import {IERC165} from "@openzeppelin/contracts/interfaces/IERC165.sol";
 import {IERC2981} from "@openzeppelin/contracts/interfaces/IERC2981.sol";
 
+import {Errors} from "@main/shared/Error.sol";
 import {ERC721} from "@openzeppelin/contracts/token/ERC721/ERC721.sol";
+import {PresaleRoles} from "@main/roles/PresaleRoles.sol";
 
 
-
-contract NFTTest is IERC2981, ERC721  {
+contract NFTTokenTest is IERC2981, ERC721, PresaleRoles {
 
     event RoyaltySet(address receiver, uint256 royaltyPer10Thousands);
 
@@ -19,13 +21,63 @@ contract NFTTest is IERC2981, ERC721  {
 
     Royalty internal _royalty;
 
+    /**
+     * @notice NFT constructor
+     * @param _name token name for ERC721
+     * @param _symbol token symbol for ERC721
+     * @param initialOwner account for initial owner 
+     * @param initialMinter account for initial minter eg. presale contract
+     * @param initialRoyaltyReceiver account for initial owner 
+     * @param initialRoyaltyPer10Thousands account for initial minter eg. presale contract
+    **/
     constructor(
+        string memory _name,
+        string memory _symbol,
         address initialRoyaltyReceiver,
-        uint96 imitialRoyaltyPer10Thousands
-    ) ERC721("NFTTest", "Test") {
+        uint96 initialRoyaltyPer10Thousands,
+        address  initialOwner,
+        address  initialMinter
+    ) ERC721(_name, _symbol) PresaleRoles(initialOwner,initialMinter) {
         _royalty.receiver = initialRoyaltyReceiver;
-        _royalty.per10Thousands = imitialRoyaltyPer10Thousands;
-        emit RoyaltySet(initialRoyaltyReceiver, imitialRoyaltyPer10Thousands);
+        _royalty.per10Thousands = initialRoyaltyPer10Thousands;
+        emit RoyaltySet(initialRoyaltyReceiver, initialRoyaltyPer10Thousands);
+    }
+
+    modifier onlyOwner() {
+        if (_owner != msg.sender) revert Errors.NotAuthorized(msg.sender);
+        _;
+    }
+
+
+    modifier onlyMinter() {
+        if (_minter != msg.sender) revert Errors.NotAuthorized(msg.sender);
+        _;
+    }
+
+    /**
+     * @notice Safely mints `tokenId` and transfers it to `to`.
+     * @param to account to for ERC721 to send
+     * @param tokenId token id
+    **/
+    function safeMint(address to, uint256 tokenId) external onlyMinter {
+        // uint256 tokenId = _tokenIdCounter.current();
+        // _tokenIdCounter.increment();
+        _safeMint(to, tokenId);
+    }
+
+    /**
+     * @notice Check if the contract supports an interface.
+     * @param id The id of the interface.
+     * @return Whether the interface is supported.
+    **/
+    function supportsInterface(bytes4 id)
+        public
+        view
+        virtual
+        override(IERC165, ERC721)
+        returns (bool)
+    {
+        return super.supportsInterface(id) || id == 0x2a55205a; /// 0x2a55205a is ERC2981 (royalty standard)
     }
 
     /**
