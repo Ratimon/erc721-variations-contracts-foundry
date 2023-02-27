@@ -5,10 +5,11 @@ import {ERC721Presale} from "@main/ERC721Presale.sol";
 import {FixedPricePreSale} from "@main/FixedPricePreSale.sol";
 
 import {ConstantsFixture}  from "@test/utils/ConstantsFixture.sol";
+
+import {DeploymentERC721Presale}  from "@test/utils/ERC721Presale.constructor.sol";
 import {DeploymentFixedPricePreSale}  from "@test/utils/FixedPricePreSale.constructor.sol";
 
-
-contract TestFixedPricePreSale is ConstantsFixture, DeploymentFixedPricePreSale {
+contract TestFixedPricePreSale is ConstantsFixture,DeploymentERC721Presale, DeploymentFixedPricePreSale {
 
     ERC721Presale erc721Presale;
     FixedPricePreSale fixedPricePreSale;
@@ -23,27 +24,46 @@ contract TestFixedPricePreSale is ConstantsFixture, DeploymentFixedPricePreSale 
 
         vm.startPrank(deployer);
 
-        arg_fixedPricePreSale._name =  "Test NFT Presale";
-        arg_fixedPricePreSale._symbol = "Presale";
-        arg_fixedPricePreSale.initialRoyaltyReceiver = msg.sender;
-        arg_fixedPricePreSale.initialRoyaltyPer10Thousands = 250; // 250 per 10_000 = 2.5%
-        arg_fixedPricePreSale.initialOwner = msg.sender;
-        arg_fixedPricePreSale.initialMinter = msg.sender;
+        arg_erc721Presale._name =  "Test NFT Presale";
+        arg_erc721Presale._symbol = "Presale";
+        arg_erc721Presale.initialRoyaltyReceiver = msg.sender;
+        arg_erc721Presale.initialRoyaltyPer10Thousands = 250; // 250 per 10_000 = 2.5%
+        arg_erc721Presale.initialOwner = msg.sender;
+        arg_erc721Presale.initialMinter = msg.sender;
 
 
         erc721Presale = new ERC721Presale(
-            arg_fixedPricePreSale._name,
-            arg_fixedPricePreSale._symbol,
-            arg_fixedPricePreSale.initialRoyaltyReceiver,
-            arg_fixedPricePreSale.initialRoyaltyPer10Thousands,
-            arg_fixedPricePreSale.initialOwner,
-            arg_fixedPricePreSale.initialMinter
+            arg_erc721Presale._name,
+            arg_erc721Presale._symbol,
+            arg_erc721Presale.initialRoyaltyReceiver,
+            arg_erc721Presale.initialRoyaltyPer10Thousands,
+            arg_erc721Presale.initialOwner,
+            arg_erc721Presale.initialMinter
 
         );
         vm.label(address(erc721Presale), "erc721Presale");
 
-        vm.stopPrank();
+        arg_fixedPricePreSale.erc721Presale = erc721Presale;
+        arg_fixedPricePreSale.price = 0.05e18;
+        arg_fixedPricePreSale.startTime = staticTime + 1 days;
+        arg_fixedPricePreSale.whitelistPrice = 0.1e18;
+        arg_fixedPricePreSale.whitelistEndTime = 7 days;
+        arg_fixedPricePreSale.whitelistMerkleRoot = bytes32("");
+        arg_fixedPricePreSale.saleRecipient = msg.sender;
 
+        fixedPricePreSale = new FixedPricePreSale(
+            arg_fixedPricePreSale.erc721Presale,
+            arg_fixedPricePreSale.price,
+            arg_fixedPricePreSale.startTime,
+            arg_fixedPricePreSale.whitelistPrice,
+            arg_fixedPricePreSale.whitelistEndTime,
+            arg_fixedPricePreSale.whitelistMerkleRoot,
+            payable(arg_fixedPricePreSale.saleRecipient)
+        );
+        vm.label(address(erc721Presale), "fixedPricePreSale");
+        // vm.warp(staticTime + 1 days );
+
+        vm.stopPrank();
     }
 
 }

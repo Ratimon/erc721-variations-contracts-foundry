@@ -10,13 +10,19 @@ contract ConstantsFixture is Test, RegisterScripts {
     uint256 constant maxUint256 = type(uint256).max;
     mapping (string => mapping (string => address)) public addresses;
 
+uint256 public staticTime;
+
     address public deployer;
     address public alice = address(1);
     address public bob = address(2);
     address public carol = address(3);
     address public dave = address(4);
 
+
     function setUp() public virtual {
+
+        staticTime = block.timestamp;
+
 
         deployer = msg.sender;
         vm.label(deployer, "Deployer");
@@ -26,6 +32,7 @@ contract ConstantsFixture is Test, RegisterScripts {
 
         deal(alice, 1 ether);
         deal(bob, 1 ether);
+
 
     }
 

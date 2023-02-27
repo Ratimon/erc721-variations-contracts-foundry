@@ -1,16 +1,18 @@
 // SPDX-License-Identifier: MIT
 pragma solidity =0.8.19;
 
+import {ERC721Presale} from "@main/ERC721Presale.sol";
 
 contract DeploymentFixedPricePreSale {
 
     struct Constructors_fixedPricePreSale {
-        string _name;
-        string _symbol;
-        address initialRoyaltyReceiver;
-        uint96 initialRoyaltyPer10Thousands;
-        address initialOwner;
-        address initialMinter;
+        ERC721Presale erc721Presale;
+        uint256 price;
+        uint256 startTime;
+        uint256 whitelistPrice;
+        uint256 whitelistEndTime;
+        bytes32 whitelistMerkleRoot;
+        address saleRecipient;
     }
 
     Constructors_fixedPricePreSale arg_fixedPricePreSale;
