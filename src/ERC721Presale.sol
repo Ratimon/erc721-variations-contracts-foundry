@@ -64,6 +64,17 @@ contract ERC721Presale is IERC2981, ERC721, PresaleRoles {
     }
 
     /**
+     * @notice set a new royalty receiver and rate, Can only be set by the `owner`.
+     *  @param newReceiver the address that should receive the royalty proceeds.
+     * @param royaltyPer10Thousands the share of the salePrice (in 1/10000) given to the receiver.
+     **/
+    function setRoyaltyParameters(address newReceiver, uint96 royaltyPer10Thousands) external onlyOwner {
+        _royalty.receiver = newReceiver;
+        _royalty.per10Thousands = royaltyPer10Thousands;
+        emit RoyaltySet(newReceiver, royaltyPer10Thousands);
+    }
+
+    /**
      * @notice Check if the contract supports an interface.
      * @param id The id of the interface.
      * @return Whether the interface is supported.
