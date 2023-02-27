@@ -8,7 +8,7 @@ import {Errors} from "@main/shared/Error.sol";
 import {ERC721} from "@openzeppelin/contracts/token/ERC721/ERC721.sol";
 import {PresaleRoles} from "@main/roles/PresaleRoles.sol";
 
-contract NFTTokenTest is IERC2981, ERC721, PresaleRoles {
+contract ERC721Presale is IERC2981, ERC721, PresaleRoles {
 
     event RoyaltySet(address receiver, uint256 royaltyPer10Thousands);
 
@@ -54,10 +54,10 @@ contract NFTTokenTest is IERC2981, ERC721, PresaleRoles {
 
     /**
      * @notice mint one of NFT if not already minted. Can only be called by `minter`.
-     * @param to address that will receive the Bleep.
      * @param tokenId token id which represent NFT
+     * @param to address that will receive the Bleep.
     **/
-    function safeMint(address to, uint256 tokenId) external onlyMinter {
+    function safeMint( uint256 tokenId, address to) external onlyMinter {
         if (to == address(this)) revert Errors.NotThis();
 
         _safeMint(to, tokenId);
