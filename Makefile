@@ -12,7 +12,7 @@ fork-node:
 	ETH_RPC_URL=$(call network,mainnet) FORK_BLOCK_NUMBER=$(call block_number) LOCAL_CHAIN_ID=$(call local_chain_id)  bash ./utils/node.sh
 
 unit-test-FixedPricePreSale:
-	forge test --match-path test/FixedPricePreSale.t.sol -vvvv --ffi
+	forge test --match-path test/FixedPricePreSale.t.sol -vvv
 
 coverage:
 	forge coverage --report lcov && genhtml lcov.info --branch-coverage --output-dir coverage
