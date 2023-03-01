@@ -1,10 +1,34 @@
+import fs from "fs";
 import { HardhatUserConfig } from "hardhat/config";
 import "@nomicfoundation/hardhat-toolbox";
 import "hardhat-preprocessor";
-import fs from "fs";
+import "hardhat-storage-layout";
+
+import tasks from './tasks'
+for (const tsk of tasks) { tsk() }
 
 const config: HardhatUserConfig = {
-  solidity: "0.8.19",
+  solidity: {
+
+    compilers: 
+  [
+    {
+      version: "0.8.19",
+      settings: {
+        optimizer: {
+          enabled: true,
+          runs: 200
+        },
+        outputSelection: {
+          "*": {
+              "*": ["storageLayout"],
+          },
+        },
+      }
+    }
+  ]
+  },
+
   preprocess: {
     eachLine: (hre) => ({
       transform: (line: string) => {
