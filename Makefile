@@ -18,7 +18,7 @@ coverage:
 	forge coverage --report lcov && genhtml lcov.info --branch-coverage --output-dir coverage
 
 generate-merkle-root:
-	yarn hardhat run utils/merkletree/rootHashScript.ts
+	yarn hardhat run utils/merkletree/getRootHashScript.ts
 
 check-api-key:
 ifndef ALCHEMY_API_KEY

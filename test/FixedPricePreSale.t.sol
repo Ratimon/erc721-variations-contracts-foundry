@@ -3,6 +3,8 @@ pragma solidity =0.8.19;
 
 import "@forge-std/console2.sol";
 
+import {IPresaleRoles} from "@main/interfaces/IPresaleRoles.sol";
+
 import {ERC721Presale} from "@main/ERC721Presale.sol";
 import {FixedPricePreSale} from "@main/FixedPricePreSale.sol";
 
@@ -49,7 +51,7 @@ contract TestFixedPricePreSale is ConstantsFixture,DeploymentERC721Presale, Depl
         inputs[0] = "yarn";
         inputs[1] = "hardhat";
         inputs[2] = "run";
-        inputs[3] = "utils/merkletree/rootHashFFI.ts";
+        inputs[3] = "utils/merkletree/getRootHashFFI.ts";
 
         bytes memory res = vm.ffi(inputs);
         bytes32 merkleroot = abi.decode(res, (bytes32));
@@ -75,17 +77,38 @@ contract TestFixedPricePreSale is ConstantsFixture,DeploymentERC721Presale, Depl
         );
         vm.label(address(erc721Presale), "fixedPricePreSale");
         // vm.warp(staticTime + 1 days );
+        IPresaleRoles(address(erc721Presale)).setMinter(address(fixedPricePreSale));
 
         vm.stopPrank();
-    }
-
-    function test_() external {
-
-
         // console2.log( 'alice', alice);
         // console2.log( 'bob', bob);
         // console2.log( 'carol', carol);
         // console2.log( 'dave', dave);
+    }
+
+    function test_mintWithPresale() external {
+
+        vm.warp(staticTime + 2 days );
+
+        deal(alice, 10 ether);
+        vm.startPrank(alice);
+
+        string[] memory inputs = new string[](4);
+        inputs[0] = "yarn";
+        inputs[1] = "hardhat";
+        inputs[2] = "run";
+        inputs[3] = "utils/merkletree/getProofFFI.ts";
+
+        bytes memory res = vm.ffi(inputs);
+        bytes32[2] memory proof = abi.decode(res, (bytes32[2]));
+
+        console2.log( 'proof1');
+        console2.logBytes32(proof[0]);
+        console2.log( 'proof2');
+        console2.logBytes32(proof[1]);
+
+        // erc721Presale.mintWithPresale(0);
+
         
 
     }

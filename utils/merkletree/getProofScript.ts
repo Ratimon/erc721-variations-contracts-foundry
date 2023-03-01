@@ -3,8 +3,8 @@ import path from 'path';
 
 import { BigNumber, BigNumberish, utils} from 'ethers';
 
-import { MerkleTree} from "../../utils/merkletree";
-import { calculateHash, hashLeaves, createLeavesFromAddress} from "../../utils/merkletree";
+import { MerkleTree} from ".";
+import { calculateHash, hashLeaves, createLeavesFromAddress} from ".";
 
 async function main(): Promise<void> {
    // Hardhat always runs the compile task when running scripts through it.
@@ -12,15 +12,25 @@ async function main(): Promise<void> {
    // to make sure everything is compiled
    // await run("compile");
 
+   process.argv.forEach(function (val, index, array) {
+    console.log(index + ': ' + val);
+    });
+
    
 
    const fileName = (false) ? `address.production.json` : `address.test.json`
    const addresses= JSON.parse(readFileSync(path.resolve(__dirname, `./data/`+fileName) ).toString());
+   const first_address = addresses[0];
    const leaves = createLeavesFromAddress(addresses);
    const tree = new MerkleTree(hashLeaves(leaves));
-   const merkleRootHash = tree.getRoot().hash;
+   //    const merkleRootHash = tree.getRoot().hash;
+   const proof = tree.getProof(calculateHash(first_address));
 
-   console.log('merkleRootHash',merkleRootHash)
+   console.log('first_address',first_address)
+   console.log('proof',proof)
+
+   //    const proof = tree.getProof(calculateHash(firstKyc));
+
 
 }  
  // We recommend this pattern to be able to use async/await everywhere

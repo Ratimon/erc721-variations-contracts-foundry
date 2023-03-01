@@ -59,7 +59,7 @@ contract FixedPricePreSale is ISale {
     }
 
     function mint(uint256 tokenId, address to) public payable {
-        require(block.timestamp >= _whitelistEndTime, "REQUIRE_PASS_OR_WAIT");
+        require(block.timestamp >= _whitelistEndTime, "REQUIRE_ALLOWANCE_OR_WAIT");
         _payAndMint(tokenId, to);
     }
 
