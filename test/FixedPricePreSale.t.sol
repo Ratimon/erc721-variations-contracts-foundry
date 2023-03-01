@@ -18,6 +18,8 @@ import {DeploymentFixedPricePreSale}  from "@test/utils/FixedPricePreSale.constr
 
 contract TestFixedPricePreSale is ConstantsFixture,DeploymentERC721Presale, DeploymentFixedPricePreSale {
 
+    // event Transfer(address indexed _from, address indexed _to, uint256 indexed _tokenId);
+
     Merkle merkle;
 
     ERC721Presale erc721Presale;
@@ -55,7 +57,7 @@ contract TestFixedPricePreSale is ConstantsFixture,DeploymentERC721Presale, Depl
         vm.label(address(erc721Presale), "erc721Presale");
 
         arg_fixedPricePreSale.erc721Presale = erc721Presale;
-        arg_fixedPricePreSale.price = 0.05e18;
+        arg_fixedPricePreSale.price = 0.2e18;
         arg_fixedPricePreSale.startTime = staticTime + 1 days;
         arg_fixedPricePreSale.whitelistPrice = 0.1e18;
         arg_fixedPricePreSale.whitelistEndTime = 7 days;
@@ -78,6 +80,19 @@ contract TestFixedPricePreSale is ConstantsFixture,DeploymentERC721Presale, Depl
 
         vm.stopPrank();
     }
+
+    function test_Constructor() public {
+
+        (uint256 price, uint256 startTime, uint256 whitelistPrice, uint256 whitelistEndTime, bytes32 whitelistMerkleRoot, address saleRecipient ) = fixedPricePreSale.priceInfo();
+
+        assertEq(price, arg_fixedPricePreSale.price);
+        assertEq(startTime, arg_fixedPricePreSale.startTime);
+        assertEq(whitelistPrice, arg_fixedPricePreSale.whitelistPrice);
+        assertEq(whitelistMerkleRoot, arg_fixedPricePreSale.whitelistMerkleRoot);
+        assertEq(saleRecipient, arg_fixedPricePreSale.saleRecipient);
+
+    }
+
 
     function test_RevertWhen_INVALID_PROOF_test_mintWithPresale() public {
 
