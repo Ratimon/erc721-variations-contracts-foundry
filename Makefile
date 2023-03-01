@@ -12,10 +12,13 @@ fork-node:
 	ETH_RPC_URL=$(call network,mainnet) FORK_BLOCK_NUMBER=$(call block_number) LOCAL_CHAIN_ID=$(call local_chain_id)  bash ./utils/node.sh
 
 unit-test-FixedPricePreSale:
-	forge test --match-path test/FixedPricePreSale.t.sol -vvvv
+	forge test --match-path test/FixedPricePreSale.t.sol -vvvv --ffi
 
 coverage:
 	forge coverage --report lcov && genhtml lcov.info --branch-coverage --output-dir coverage
+
+generate-merkle-root:
+	yarn hardhat run utils/merkletree/rootHashScript.ts
 
 check-api-key:
 ifndef ALCHEMY_API_KEY

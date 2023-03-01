@@ -1,6 +1,8 @@
 // SPDX-License-Identifier: MIT
 pragma solidity =0.8.19;
 
+import "@forge-std/console2.sol";
+
 import {ERC721Presale} from "@main/ERC721Presale.sol";
 import {FixedPricePreSale} from "@main/FixedPricePreSale.sol";
 
@@ -43,6 +45,17 @@ contract TestFixedPricePreSale is ConstantsFixture,DeploymentERC721Presale, Depl
         );
         vm.label(address(erc721Presale), "erc721Presale");
 
+        string[] memory inputs = new string[](4);
+        inputs[0] = "yarn";
+        inputs[1] = "hardhat";
+        inputs[2] = "run";
+        inputs[3] = "utils/merkletree/rootHashFFI.ts";
+
+        bytes memory res = vm.ffi(inputs);
+        bytes32 merkleroot = abi.decode(res, (bytes32));
+        // console2.log( 'merkleroot');
+        // console2.logBytes32(merkleroot);
+
         arg_fixedPricePreSale.erc721Presale = erc721Presale;
         arg_fixedPricePreSale.price = 0.05e18;
         arg_fixedPricePreSale.startTime = staticTime + 1 days;
@@ -64,6 +77,17 @@ contract TestFixedPricePreSale is ConstantsFixture,DeploymentERC721Presale, Depl
         // vm.warp(staticTime + 1 days );
 
         vm.stopPrank();
+    }
+
+    function test_() external {
+
+
+        // console2.log( 'alice', alice);
+        // console2.log( 'bob', bob);
+        // console2.log( 'carol', carol);
+        // console2.log( 'dave', dave);
+        
+
     }
 
 }
