@@ -61,7 +61,7 @@ contract TestFixedPricePreSale is ConstantsFixture,DeploymentERC721Presale, Depl
         arg_fixedPricePreSale.startTime = staticTime + 1 days;
         arg_fixedPricePreSale.whitelistPrice = 0.1e18;
         arg_fixedPricePreSale.whitelistEndTime = 7 days;
-        arg_fixedPricePreSale.whitelistMerkleRoot = bytes32("");
+        arg_fixedPricePreSale.whitelistMerkleRoot = merkleroot;
         arg_fixedPricePreSale.saleRecipient = msg.sender;
 
         fixedPricePreSale = new FixedPricePreSale(
