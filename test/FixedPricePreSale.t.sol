@@ -18,7 +18,7 @@ import {DeploymentFixedPricePreSale}  from "@test/utils/FixedPricePreSale.constr
 
 contract TestFixedPricePreSale is ConstantsFixture,DeploymentERC721Presale, DeploymentFixedPricePreSale {
 
-    // event Transfer(address indexed _from, address indexed _to, uint256 indexed _tokenId);
+    event Transfer(address indexed _from, address indexed _to, uint256 indexed _tokenId);
 
     Merkle merkle;
 
@@ -59,7 +59,7 @@ contract TestFixedPricePreSale is ConstantsFixture,DeploymentERC721Presale, Depl
         arg_fixedPricePreSale.erc721Presale = erc721Presale;
         arg_fixedPricePreSale.price = 0.2e18;
         arg_fixedPricePreSale.startTime = staticTime + 1 days;
-        arg_fixedPricePreSale.whitelistPrice = 0.1e18;
+        arg_fixedPricePreSale.whitelistPrice = 0.15e18;
         arg_fixedPricePreSale.whitelistEndTime = 7 days;
         // yarn hardhat getRootHash
         arg_fixedPricePreSale.whitelistMerkleRoot = 0x437ca09d93ac1db27ca6c483cb04275d6b3e34794514d270f3d7b32f4bc0c8fc;
@@ -129,13 +129,16 @@ contract TestFixedPricePreSale is ConstantsFixture,DeploymentERC721Presale, Depl
         vm.startPrank(alice);
 
         uint256 tokenId = 1;
+        uint256 alicePreEthBal = address(alice).balance;
+        assertEq(fixedPricePreSale.isAllowanceUsed(tokenId), false);
 
         //yarn hardhat getProof --address 0x000000000000000000000000000000000000000b (alice)
         bytes32[] memory data = new bytes32[](2);
         data[0] = 0xde6e6fcaefc39f05e5912014093f38926987bb7b125e51b49ddfb49b03e36c50;
         data[1] = 0xa2bb3aed0a64660566f6ae0e3bc2f7b42de98a734d098f14f8d0c9e7abb308a0;
 
-        assertEq(fixedPricePreSale.isAllowanceUsed(tokenId), false);
+        vm.expectEmit(true, true, true, true, address(erc721Presale));
+        emit Transfer(address(0), alice, tokenId);
 
         fixedPricePreSale.mintWithPresale{value: 1e18}(
             tokenId,
@@ -143,7 +146,13 @@ contract TestFixedPricePreSale is ConstantsFixture,DeploymentERC721Presale, Depl
             data
         );
 
-         assertEq(fixedPricePreSale.isAllowanceUsed(tokenId), true);
+         uint256 alicePostEthBal = address(alice).balance;
+
+        uint256 changeInAliceBal = alicePostEthBal > alicePreEthBal ? (alicePostEthBal - alicePreEthBal) : (alicePreEthBal - alicePostEthBal);
+        (,, uint256 whitelistPrice,, , ) = fixedPricePreSale.priceInfo();
+
+        assertEq(changeInAliceBal, whitelistPrice );
+        assertEq(fixedPricePreSale.isAllowanceUsed(tokenId), true);
 
         vm.stopPrank();
 

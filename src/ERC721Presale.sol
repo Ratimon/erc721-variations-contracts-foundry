@@ -59,6 +59,7 @@ contract ERC721Presale is IERC2981, ERC721, PresaleRoles {
     **/
     function safeMint( uint256 tokenId, address to) external onlyMinter {
         if (to == address(this)) revert Errors.NotThis();
+        require (tokenId<10, "ONLY_SELECT_TOKEN_FROM_0_TO_9");
 
         _safeMint(to, tokenId);
     }
