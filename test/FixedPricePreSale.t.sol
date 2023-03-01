@@ -5,6 +5,7 @@ import "@forge-std/console2.sol";
 
 import {IPresaleRoles} from "@main/interfaces/IPresaleRoles.sol";
 
+import {Strings} from "@openzeppelin/contracts/utils/Strings.sol";
 import {ERC721Presale} from "@main/ERC721Presale.sol";
 import {FixedPricePreSale} from "@main/FixedPricePreSale.sol";
 
@@ -54,6 +55,7 @@ contract TestFixedPricePreSale is ConstantsFixture,DeploymentERC721Presale, Depl
         inputs[3] = "utils/merkletree/getRootHashFFI.ts";
 
         bytes memory res = vm.ffi(inputs);
+        console2.logBytes( res);
         bytes32 merkleroot = abi.decode(res, (bytes32));
         // console2.log( 'merkleroot');
         // console2.logBytes32(merkleroot);
@@ -86,6 +88,21 @@ contract TestFixedPricePreSale is ConstantsFixture,DeploymentERC721Presale, Depl
         // console2.log( 'dave', dave);
     }
 
+    function stringToBytes32(string memory source) public pure returns (bytes32 result) {
+        bytes memory tempEmptyStringTest = bytes(source);
+        if (tempEmptyStringTest.length == 0) {
+            return 0x0;
+        }
+
+        assembly {
+            result := mload(add(source, 32))
+        }
+    }
+
+    // struct Proof{
+    //     string[] proofs;
+    // }
+
     function test_mintWithPresale() external {
 
         vm.warp(staticTime + 2 days );
@@ -93,19 +110,62 @@ contract TestFixedPricePreSale is ConstantsFixture,DeploymentERC721Presale, Depl
         deal(alice, 10 ether);
         vm.startPrank(alice);
 
+        // console2.log('alice_string',Strings.toHexString(uint160(alice), 20));
+
         string[] memory inputs = new string[](4);
         inputs[0] = "yarn";
         inputs[1] = "hardhat";
         inputs[2] = "run";
         inputs[3] = "utils/merkletree/getProofFFI.ts";
 
+        // yarn hardhat getProofFFI alice
+        // Strings.toHexString(uint160(address), 20)
+
+        // inputs[0] = "yarn";
+        // inputs[1] = "hardhat";
+        // inputs[2] = "getProofFFI";
+        // inputs[3] = Strings.toHexString(uint160(alice), 20);
+
+// 'bytes32[2] proof'
+
+        // bytes32[2] proof
+
+
         bytes memory res = vm.ffi(inputs);
-        bytes32[2] memory proof = abi.decode(res, (bytes32[2]));
+        console2.logBytes( res);
+        bytes32[] memory proof = abi.decode(res, (bytes32[]));
+        // Proof memory proof = abi.decode(res, (Proof));
+
+        
 
         console2.log( 'proof1');
         console2.logBytes32(proof[0]);
         console2.log( 'proof2');
         console2.logBytes32(proof[1]);
+
+        // console2.log( 'proof1');
+        // console2.logBytes(proof[0]);
+        // console2.log( 'proof2');
+        // console2.logBytes(proof[1]);
+
+        // console2.log( 'proof1');
+        // console2.logBytes32(bytes32(bytes(proof.proofs[0])));
+        // console2.log( 'proof2');
+        // console2.logBytes32(bytes32(bytes(proof.proofs[1])));
+
+        // console2.log( 'proof1');
+        // console2.logBytes32(bytes32(bytes(proof[0])));
+        // console2.log( 'proof2');
+        // console2.logBytes32(bytes32(bytes(proof[1])));
+
+
+        // console2.log( 'proof1');
+        // console2.logBytes32( stringToBytes32 (proof[0]) ) ;
+        // console2.log( 'proof2');
+        // console2.logBytes32(stringToBytes32 (proof[1]));
+
+
+        // bytes32(bytes(text));
 
         // erc721Presale.mintWithPresale(0);
 

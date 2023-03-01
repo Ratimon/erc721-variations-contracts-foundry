@@ -6,15 +6,19 @@ import { BigNumber, BigNumberish, utils} from 'ethers';
 import { MerkleTree} from ".";
 import { calculateHash, hashLeaves, createLeavesFromAddress} from ".";
 
+const { 
+	defaultAbiCoder,
+   } = utils;
+
 async function main(): Promise<void> {
    // Hardhat always runs the compile task when running scripts through it.
    // If this runs in a standalone fashion you may want to call compile manually
    // to make sure everything is compiled
    // await run("compile");
 
-   process.argv.forEach(function (val, index, array) {
-    console.log(index + ': ' + val);
-    });
+  //  process.argv.forEach(function (val, index, array) {
+  //   console.log(index + ': ' + val);
+  //   });
 
    
 
@@ -29,7 +33,24 @@ async function main(): Promise<void> {
    console.log('first_address',first_address)
    console.log('proof',proof)
 
-   //    const proof = tree.getProof(calculateHash(firstKyc));
+  //  const encodedData = defaultAbiCoder.encode(
+  //   ['bytes32[2] proof'],
+  //   [proof]
+  //  )
+
+  const encodedData = defaultAbiCoder.encode(
+    ['bytes32[2] proof'],
+    [proof]
+   )
+   console.log('encodedData',encodedData)
+
+
+   const decodedData = defaultAbiCoder.decode(
+      ['bytes32[2]'],
+      encodedData
+   )
+
+   console.log('decodedData',decodedData)
 
 
 }  

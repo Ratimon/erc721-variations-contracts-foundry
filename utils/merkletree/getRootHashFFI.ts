@@ -20,4 +20,6 @@ const {
     [merkleRootHash]
    )
 
+   console.log('encodedData',encodedData)
+
 process.stdout.write(encodedData);
