@@ -79,6 +79,33 @@ contract TestFixedPricePreSale is ConstantsFixture,DeploymentERC721Presale, Depl
         vm.stopPrank();
     }
 
+    function test_RevertWhen_INVALID_PROOF_test_mintWithPresale() public {
+
+        vm.warp(staticTime + 2 days );
+
+        deal(bob, 10 ether);
+
+        vm.startPrank(bob);
+
+        uint256 tokenId = 1;
+
+        //yarn hardhat getProof --address 0x000000000000000000000000000000000000000b (alice)
+        bytes32[] memory data = new bytes32[](2);
+        data[0] = 0xde6e6fcaefc39f05e5912014093f38926987bb7b125e51b49ddfb49b03e36c50;
+        data[1] = 0xa2bb3aed0a64660566f6ae0e3bc2f7b42de98a734d098f14f8d0c9e7abb308a0;
+
+        vm.expectRevert(
+            bytes("INVALID_PROOF")
+        );
+        fixedPricePreSale.mintWithPresale{value: 1e18}(
+            tokenId,
+            bob,
+            data
+        );
+
+        vm.stopPrank();
+    }
+
     function test_mintWithPresale() external {
 
         vm.warp(staticTime + 2 days );
@@ -86,16 +113,24 @@ contract TestFixedPricePreSale is ConstantsFixture,DeploymentERC721Presale, Depl
         deal(alice, 10 ether);
         vm.startPrank(alice);
 
+        uint256 tokenId = 1;
+
         //yarn hardhat getProof --address 0x000000000000000000000000000000000000000b (alice)
         bytes32[] memory data = new bytes32[](2);
         data[0] = 0xde6e6fcaefc39f05e5912014093f38926987bb7b125e51b49ddfb49b03e36c50;
         data[1] = 0xa2bb3aed0a64660566f6ae0e3bc2f7b42de98a734d098f14f8d0c9e7abb308a0;
 
+        assertEq(fixedPricePreSale.isAllowanceUsed(tokenId), false);
+
         fixedPricePreSale.mintWithPresale{value: 1e18}(
-            1,
+            tokenId,
             alice,
             data
         );
+
+         assertEq(fixedPricePreSale.isAllowanceUsed(tokenId), true);
+
+        vm.stopPrank();
 
     }
 

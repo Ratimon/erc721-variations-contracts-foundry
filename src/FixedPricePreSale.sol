@@ -52,10 +52,11 @@ contract FixedPricePreSale is ISale {
             uint256 startTime,
             uint256 whitelistPrice,
             uint256 whitelistEndTime,
-            bytes32 whitelistMerkleRoot
+            bytes32 whitelistMerkleRoot,
+            address saleRecipient
         )
     {
-        return (_price, _startTime, _whitelistPrice, _whitelistEndTime, _whitelistMerkleRoot);
+        return (_price, _startTime, _whitelistPrice, _whitelistEndTime, _whitelistMerkleRoot, _saleRecipient);
     }
 
     function mint(uint256 tokenId, address to) public payable {
@@ -69,7 +70,7 @@ contract FixedPricePreSale is ISale {
         bytes32[] memory proof
     ) external payable {
         if (block.timestamp < _whitelistEndTime) {
-            useAllowanceIfAvailable(tokenId);
+            _useAllowanceIfAvailable(tokenId);
 
             address signer = msg.sender;
             bytes32 leaf = _generateAllowanceHash(signer);
@@ -79,12 +80,16 @@ contract FixedPricePreSale is ISale {
         _payAndMint(tokenId, to);
     }
 
+    function isAllowanceUsed(uint256 tokenId) public view returns(bool) {
+        return _isAllowanceUsed.get(tokenId);
+    }
+
     function _generateAllowanceHash(address signer) internal pure returns (bytes32) {
         return keccak256(abi.encodePacked(signer));
     }
 
-    function useAllowanceIfAvailable(uint256 tokenId) internal {
-        require(!_isAllowanceUsed.get(tokenId), "ALLOWANCE_ALREADY_USED");
+    function _useAllowanceIfAvailable(uint256 tokenId) internal {
+        require(!isAllowanceUsed(tokenId), "ALLOWANCE_ALREADY_USED");
         _isAllowanceUsed.setTo(tokenId, true);
     }
 
