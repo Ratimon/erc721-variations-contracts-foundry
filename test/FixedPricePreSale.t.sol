@@ -6,6 +6,8 @@ import "@forge-std/console2.sol";
 import {IPresaleRoles} from "@main/interfaces/IPresaleRoles.sol";
 
 import {Strings} from "@openzeppelin/contracts/utils/Strings.sol";
+import {Merkle} from "@murky/Merkle.sol";
+
 import {ERC721Presale} from "@main/ERC721Presale.sol";
 import {FixedPricePreSale} from "@main/FixedPricePreSale.sol";
 
@@ -15,6 +17,8 @@ import {DeploymentERC721Presale}  from "@test/utils/ERC721Presale.constructor.so
 import {DeploymentFixedPricePreSale}  from "@test/utils/FixedPricePreSale.constructor.sol";
 
 contract TestFixedPricePreSale is ConstantsFixture,DeploymentERC721Presale, DeploymentFixedPricePreSale {
+
+    Merkle merkle;
 
     ERC721Presale erc721Presale;
     FixedPricePreSale fixedPricePreSale;
@@ -28,6 +32,8 @@ contract TestFixedPricePreSale is ConstantsFixture,DeploymentERC721Presale, Depl
         vm.label(address(this), "TestFixedPricePreSale");
 
         vm.startPrank(deployer);
+
+        merkle = new Merkle();
 
         arg_erc721Presale._name =  "Test NFT Presale";
         arg_erc721Presale._symbol = "Presale";
@@ -48,24 +54,24 @@ contract TestFixedPricePreSale is ConstantsFixture,DeploymentERC721Presale, Depl
         );
         vm.label(address(erc721Presale), "erc721Presale");
 
-        string[] memory inputs = new string[](4);
-        inputs[0] = "yarn";
-        inputs[1] = "hardhat";
-        inputs[2] = "run";
-        inputs[3] = "utils/merkletree/getRootHashFFI.ts";
+        // string[] memory inputs = new string[](4);
+        // inputs[0] = "yarn";
+        // inputs[1] = "hardhat";
+        // inputs[2] = "run";
+        // inputs[3] = "utils/merkletree/getRootHashFFI.ts";
 
-        bytes memory res = vm.ffi(inputs);
-        console2.logBytes( res);
-        bytes32 merkleroot = abi.decode(res, (bytes32));
-        // console2.log( 'merkleroot');
-        // console2.logBytes32(merkleroot);
+        // bytes memory res = vm.ffi(inputs);
+        // console2.logBytes( res);
+        // bytes32 merkleRootHash = abi.decode(res, (bytes32));
+        // console2.log( 'merkleroot1');
+        // console2.logBytes32(merkleRootHash);
 
         arg_fixedPricePreSale.erc721Presale = erc721Presale;
         arg_fixedPricePreSale.price = 0.05e18;
         arg_fixedPricePreSale.startTime = staticTime + 1 days;
         arg_fixedPricePreSale.whitelistPrice = 0.1e18;
         arg_fixedPricePreSale.whitelistEndTime = 7 days;
-        arg_fixedPricePreSale.whitelistMerkleRoot = merkleroot;
+        arg_fixedPricePreSale.whitelistMerkleRoot = 0x437ca09d93ac1db27ca6c483cb04275d6b3e34794514d270f3d7b32f4bc0c8fc;
         arg_fixedPricePreSale.saleRecipient = msg.sender;
 
         fixedPricePreSale = new FixedPricePreSale(
@@ -88,21 +94,6 @@ contract TestFixedPricePreSale is ConstantsFixture,DeploymentERC721Presale, Depl
         // console2.log( 'dave', dave);
     }
 
-    function stringToBytes32(string memory source) public pure returns (bytes32 result) {
-        bytes memory tempEmptyStringTest = bytes(source);
-        if (tempEmptyStringTest.length == 0) {
-            return 0x0;
-        }
-
-        assembly {
-            result := mload(add(source, 32))
-        }
-    }
-
-    // struct Proof{
-    //     string[] proofs;
-    // }
-
     function test_mintWithPresale() external {
 
         vm.warp(staticTime + 2 days );
@@ -110,13 +101,36 @@ contract TestFixedPricePreSale is ConstantsFixture,DeploymentERC721Presale, Depl
         deal(alice, 10 ether);
         vm.startPrank(alice);
 
-        // console2.log('alice_string',Strings.toHexString(uint160(alice), 20));
+        bytes32[] memory data = new bytes32[](2);
+        data[0] = 0xde6e6fcaefc39f05e5912014093f38926987bb7b125e51b49ddfb49b03e36c50;
+        data[1] = 0xa2bb3aed0a64660566f6ae0e3bc2f7b42de98a734d098f14f8d0c9e7abb308a0;
 
-        string[] memory inputs = new string[](4);
-        inputs[0] = "yarn";
-        inputs[1] = "hardhat";
-        inputs[2] = "run";
-        inputs[3] = "utils/merkletree/getProofFFI.ts";
+        fixedPricePreSale.mintWithPresale{value: 1e18}(
+            1,
+            alice,
+            data
+        );
+
+        // bytes32[] memory data = new bytes32[](4);
+        // data[0] = keccak256(abi.encodePacked(alice));
+        // data[1] = keccak256(abi.encodePacked(bob));
+        // data[2] = keccak256(abi.encodePacked(carol));
+        // data[3] = keccak256(abi.encodePacked(dave));
+
+        // console2.log("alice");
+        // console2.logBytes32(data[0] );
+
+        // bytes32 root = merkle.getRoot(data);
+
+
+        // console2.log("root2");
+        // console2.logBytes32( root ) ;
+
+        // string[] memory inputs = new string[](4);
+        // inputs[0] = "yarn";
+        // inputs[1] = "hardhat";
+        // inputs[2] = "run";
+        // inputs[3] = "utils/merkletree/getProofFFI.ts";
 
         // yarn hardhat getProofFFI alice
         // Strings.toHexString(uint160(address), 20)
@@ -126,48 +140,22 @@ contract TestFixedPricePreSale is ConstantsFixture,DeploymentERC721Presale, Depl
         // inputs[2] = "getProofFFI";
         // inputs[3] = Strings.toHexString(uint160(alice), 20);
 
-// 'bytes32[2] proof'
+        // 'bytes32[2] proof'
 
         // bytes32[2] proof
 
 
-        bytes memory res = vm.ffi(inputs);
-        console2.logBytes( res);
-        bytes32[] memory proof = abi.decode(res, (bytes32[]));
-        // Proof memory proof = abi.decode(res, (Proof));
+        // bytes memory res = vm.ffi(inputs);
+        // console2.logBytes( res);
+        // bytes32[2] memory proof = abi.decode(res, (bytes32[2]));
+
+        // console2.log( 'proof1');
+        // console2.logBytes32(proof[0]);
+        // console2.log( 'proof2');
+        // console2.logBytes32(proof[1]);
+
 
         
-
-        console2.log( 'proof1');
-        console2.logBytes32(proof[0]);
-        console2.log( 'proof2');
-        console2.logBytes32(proof[1]);
-
-        // console2.log( 'proof1');
-        // console2.logBytes(proof[0]);
-        // console2.log( 'proof2');
-        // console2.logBytes(proof[1]);
-
-        // console2.log( 'proof1');
-        // console2.logBytes32(bytes32(bytes(proof.proofs[0])));
-        // console2.log( 'proof2');
-        // console2.logBytes32(bytes32(bytes(proof.proofs[1])));
-
-        // console2.log( 'proof1');
-        // console2.logBytes32(bytes32(bytes(proof[0])));
-        // console2.log( 'proof2');
-        // console2.logBytes32(bytes32(bytes(proof[1])));
-
-
-        // console2.log( 'proof1');
-        // console2.logBytes32( stringToBytes32 (proof[0]) ) ;
-        // console2.log( 'proof2');
-        // console2.logBytes32(stringToBytes32 (proof[1]));
-
-
-        // bytes32(bytes(text));
-
-        // erc721Presale.mintWithPresale(0);
 
         
 

@@ -12,11 +12,12 @@ const {
    const fileName = (false) ? `address.production.json` : `address.test.json`
    const addresses= JSON.parse(readFileSync(path.resolve(__dirname, `./data/`+fileName) ).toString());
    const leaves = createLeavesFromAddress(addresses);
+
    const tree = new MerkleTree(hashLeaves(leaves));
    const merkleRootHash = tree.getRoot().hash;
 
    const encodedData = defaultAbiCoder.encode(
-    ['bytes32 hash'],
+    ['bytes32 merkleRootHash'],
     [merkleRootHash]
    )
 

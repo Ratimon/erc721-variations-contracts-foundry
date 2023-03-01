@@ -1,6 +1,9 @@
 // SPDX-License-Identifier: MIT
 pragma solidity =0.8.19;
 
+import "@forge-std/console2.sol";
+
+
 import {ISale} from "@main/interfaces/ISale.sol";
 import {ERC721Presale} from "@main/ERC721Presale.sol";
 
@@ -69,13 +72,23 @@ contract FixedPricePreSale is ISale {
         bytes32[] memory proof
     ) external payable {
         if (block.timestamp < _whitelistEndTime) {
+
+            console2.log('1');
+
             useAllowanceIfAvailable(tokenId);
+
+            console2.log('2');
 
             address signer = msg.sender;
             bytes32 leaf = _generateAllowanceHash(signer);
+
+            console2.log('3');
             require(MerkleProof.verify(proof,_whitelistMerkleRoot,leaf), "INVALID_PROOF");
+
+            console2.log('4');
         }
         _payAndMint(tokenId, to);
+        console2.log('5');
     }
 
     function _generateAllowanceHash(address signer) internal pure returns (bytes32) {
@@ -90,9 +103,15 @@ contract FixedPricePreSale is ISale {
     function _payAndMint(uint256 tokenId, address to) internal {
         require(block.timestamp >= _startTime, "SALE_NOT_STARTED");
 
+        console2.log('41');
+
         uint256 expectedValue = block.timestamp >= _whitelistEndTime ? _price : _whitelistPrice;
 
+        console2.log('42');
+
         require(msg.value >= expectedValue, "NOT_ENOUGH");
+         console2.log('43');
+
         
         if (msg.value > expectedValue) {
             payable(msg.sender).transfer(msg.value - expectedValue);

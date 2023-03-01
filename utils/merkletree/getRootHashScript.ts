@@ -17,10 +17,21 @@ async function main(): Promise<void> {
    const fileName = (false) ? `address.production.json` : `address.test.json`
    const addresses= JSON.parse(readFileSync(path.resolve(__dirname, `./data/`+fileName) ).toString());
    const leaves = createLeavesFromAddress(addresses);
+   console.log("hashleaves",hashLeaves(leaves));
+
    const tree = new MerkleTree(hashLeaves(leaves));
    const merkleRootHash = tree.getRoot().hash;
 
+   console.log('tree.getRoot()',tree.getRoot())
+
+
+
    console.log('merkleRootHash',merkleRootHash)
+
+  //  const proof = tree.getProof(calculateHash(calculateHash(first_address)));
+
+  //  console.log('proof',proof)
+
 
 }  
  // We recommend this pattern to be able to use async/await everywhere

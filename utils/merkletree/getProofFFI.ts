@@ -24,10 +24,11 @@ const {
 
 
    const encodedData = defaultAbiCoder.encode(
-    ['bytes32[] proof'],
-    [proof]
-   )
-
+      [`bytes32[${proof.length}]`],
+      [proof]
+     )
+     console.log('encodedData',encodedData)
+     
    // const decodedData = defaultAbiCoder.decode(
    //    ['bytes32[] proof'],
    //    encodedData

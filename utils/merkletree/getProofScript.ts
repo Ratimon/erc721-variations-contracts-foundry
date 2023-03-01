@@ -32,6 +32,7 @@ async function main(): Promise<void> {
 
    console.log('first_address',first_address)
    console.log('proof',proof)
+   console.log('proof length',proof.length)
 
   //  const encodedData = defaultAbiCoder.encode(
   //   ['bytes32[2] proof'],
@@ -39,14 +40,14 @@ async function main(): Promise<void> {
   //  )
 
   const encodedData = defaultAbiCoder.encode(
-    ['bytes32[2] proof'],
+    [`bytes32[${proof.length}]`],
     [proof]
    )
    console.log('encodedData',encodedData)
 
 
    const decodedData = defaultAbiCoder.decode(
-      ['bytes32[2]'],
+      [`bytes32[${proof.length}]`],
       encodedData
    )
 
