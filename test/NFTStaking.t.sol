@@ -73,7 +73,7 @@ contract TestFixedPricePreSale is ConstantsFixture {
         assertEq(IMinter2StepRoles(address(erc20GameToken)).minter(), address(nftStaking)) ;
     }
 
-    function test_RevertWhen_NotTokenOwner_test_mstakeNFT() external {
+    function test_RevertWhen_NotTokenOwner_stakeNFT() external {
 
         vm.startPrank(bob);
 
@@ -141,6 +141,35 @@ contract TestFixedPricePreSale is ConstantsFixture {
         
     }
 
+    function test_RevertWhen_CALLER_NOT_STAKING_OWNER_unStakeNFT() external {
+
+        vm.startPrank(alice);
+
+        uint256 tokenId = 1;
+        uint256 stakingDayPeriod = 2 days;
+
+        dealERC721(address(erc721GameNFT), alice, tokenId);
+
+        erc721GameNFT.approve(address(nftStaking), tokenId);
+
+        nftStaking.stakeNFT(
+            tokenId
+        );
+
+        vm.warp(staticTime + stakingDayPeriod );
+        vm.stopPrank();
+
+        vm.startPrank(bob);
+        vm.expectRevert(
+            bytes("CALLER_NOT_STAKING_OWNER")
+        );
+        nftStaking.unStakeNFT(
+            tokenId
+        );
+
+        vm.stopPrank();
+    }
+
     function test_unStakeNFT() external {
 
         vm.startPrank(alice);
@@ -167,7 +196,7 @@ contract TestFixedPricePreSale is ConstantsFixture {
         ( address owner ,uint256 startTime ) = nftStaking.stakeInfo(tokenId);
 
         assertEq( owner, address(0) );
-        assertEq( startTime, block.timestamp );
+        assertEq( startTime, currentTimestamp );
         assertEq(  IERC20(address(erc20GameToken)).balanceOf(alice), (stakingDayPeriod*nftStaking.rewardPerDay())/1 days );
 
         vm.stopPrank();
@@ -200,7 +229,7 @@ contract TestFixedPricePreSale is ConstantsFixture {
         ( address owner ,uint256 startTime ) = nftStaking.stakeInfo(tokenId);
 
         assertEq( owner, alice );
-        assertEq( startTime, block.timestamp );
+        assertEq( startTime, currentTimestamp );
         assertEq(  IERC20(address(erc20GameToken)).balanceOf(alice), (stakingDayPeriod*nftStaking.rewardPerDay())/1 days );
 
         vm.stopPrank();
