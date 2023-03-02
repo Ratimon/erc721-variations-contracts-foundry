@@ -1,0 +1,4 @@
+TestFixedPricePreSale:test_Constructor() (gas: 20373)
+TestFixedPricePreSale:test_claimRewards() (gas: 566277)
+TestFixedPricePreSale:test_stakeNFT() (gas: 516490)
+TestFixedPricePreSale:test_unStakeNFT() (gas: 590124)
