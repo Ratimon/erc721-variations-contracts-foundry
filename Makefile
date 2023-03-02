@@ -14,6 +14,9 @@ fork-node:
 unit-test-FixedPricePreSale:
 	forge test --match-path test/FixedPricePreSale.t.sol -vvv
 
+unit-test-NFTStaking:
+	forge test --match-path test/NFTStaking.t.sol -vvv
+
 coverage:
 	forge coverage --report lcov && genhtml lcov.info --branch-coverage --output-dir coverage
 

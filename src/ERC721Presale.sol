@@ -97,12 +97,11 @@ contract ERC721Presale is IERC2981, ERC721, Minter2StepRoles {
 
     /**
      * @notice Called with the sale price to determine how much royalty is owed and to whom.
-     * @param id - the token queried for royalty information.
      * @param salePrice - the sale price of the token specified by id.
      * @return receiver - address of who should be sent the royalty payment.
      * @return royaltyAmount - the royalty payment amount for salePrice.
     **/
-    function royaltyInfo(uint256 id, uint256 salePrice)
+    function royaltyInfo(uint256 , uint256 salePrice)
         external
         view
         returns (address receiver, uint256 royaltyAmount)
