@@ -6,7 +6,7 @@ import {Errors} from "@main/shared/Error.sol";
 import {ERC721} from "@openzeppelin/contracts/token/ERC721/ERC721.sol";
 import {Minter2StepRoles} from "@main/roles/Minter2StepRoles.sol";
 
-contract MyToken is ERC721, Minter2StepRoles {
+contract ERC721Game is ERC721, Minter2StepRoles {
 
     using Counters for Counters.Counter;
 
