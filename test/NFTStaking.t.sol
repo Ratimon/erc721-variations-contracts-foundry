@@ -53,5 +53,14 @@ contract TestFixedPricePreSale is ConstantsFixture {
 
     }
 
+    function test_Constructor() public {
+        assertEq( address(nftStaking.gameToken()), address(erc20GameToken) );
+        assertEq(  address(nftStaking.gameNFT()), address(erc721GameNFT) );
+        assertEq( nftStaking.rewardPerDay(), 20 );
+
+        assertEq(IMinter2StepRoles(address(erc20GameToken)).minter(), address(nftStaking)) ;
+    }
+
+
 
 }
