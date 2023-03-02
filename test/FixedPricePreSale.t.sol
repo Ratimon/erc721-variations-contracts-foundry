@@ -3,7 +3,7 @@ pragma solidity =0.8.19;
 
 import "@forge-std/console2.sol";
 
-import {IPresaleRoles} from "@main/interfaces/IPresaleRoles.sol";
+import {IMinter2StepRoles} from "@main/interfaces/IMinter2StepRoles.sol";
 
 import {Strings} from "@openzeppelin/contracts/utils/Strings.sol";
 import {Merkle} from "@murky/Merkle.sol";
@@ -76,7 +76,7 @@ contract TestFixedPricePreSale is ConstantsFixture,DeploymentERC721Presale, Depl
         );
         vm.label(address(erc721Presale), "fixedPricePreSale");
         // vm.warp(staticTime + 1 days );
-        IPresaleRoles(address(erc721Presale)).setMinter(address(fixedPricePreSale));
+        IMinter2StepRoles(address(erc721Presale)).setMinter(address(fixedPricePreSale));
 
         vm.stopPrank();
     }
@@ -88,6 +88,7 @@ contract TestFixedPricePreSale is ConstantsFixture,DeploymentERC721Presale, Depl
         assertEq(price, arg_fixedPricePreSale.price);
         assertEq(startTime, arg_fixedPricePreSale.startTime);
         assertEq(whitelistPrice, arg_fixedPricePreSale.whitelistPrice);
+        assertEq(whitelistEndTime, arg_fixedPricePreSale.whitelistEndTime);
         assertEq(whitelistMerkleRoot, arg_fixedPricePreSale.whitelistMerkleRoot);
         assertEq(saleRecipient, arg_fixedPricePreSale.saleRecipient);
 

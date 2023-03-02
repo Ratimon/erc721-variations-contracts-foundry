@@ -6,9 +6,9 @@ import {IERC2981} from "@openzeppelin/contracts/interfaces/IERC2981.sol";
 
 import {Errors} from "@main/shared/Error.sol";
 import {ERC721} from "@openzeppelin/contracts/token/ERC721/ERC721.sol";
-import {PresaleRoles} from "@main/roles/PresaleRoles.sol";
+import {Minter2StepRoles} from "@main/roles/Minter2StepRoles.sol";
 
-contract ERC721Presale is IERC2981, ERC721, PresaleRoles {
+contract ERC721Presale is IERC2981, ERC721, Minter2StepRoles {
 
     event RoyaltySet(address receiver, uint256 royaltyPer10Thousands);
 
@@ -17,6 +17,7 @@ contract ERC721Presale is IERC2981, ERC721, PresaleRoles {
         uint96 per10Thousands;
     }
 
+    uint256 public constant MAX_SUPPLY = 10;
     Royalty internal _royalty;
 
     /**
@@ -35,7 +36,7 @@ contract ERC721Presale is IERC2981, ERC721, PresaleRoles {
         uint96 initialRoyaltyPer10Thousands,
         address  initialOwner,
         address  initialMinter
-    ) ERC721(_name, _symbol) PresaleRoles(initialOwner,initialMinter) {
+    ) ERC721(_name, _symbol) Minter2StepRoles(initialOwner,initialMinter) {
         _royalty.receiver = initialRoyaltyReceiver;
         _royalty.per10Thousands = initialRoyaltyPer10Thousands;
         emit RoyaltySet(initialRoyaltyReceiver, initialRoyaltyPer10Thousands);
@@ -59,7 +60,7 @@ contract ERC721Presale is IERC2981, ERC721, PresaleRoles {
     **/
     function safeMint( uint256 tokenId, address to) external onlyMinter {
         if (to == address(this)) revert Errors.NotThis();
-        require (tokenId<10, "ONLY_SELECT_TOKEN_FROM_0_TO_9");
+        require (tokenId<MAX_SUPPLY, "EXCEEDS_MAX_SUPPLY");
 
         _safeMint(to, tokenId);
     }

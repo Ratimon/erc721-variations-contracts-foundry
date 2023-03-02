@@ -1,14 +1,14 @@
 // SPDX-License-Identifier: MIT
 pragma solidity =0.8.19;
 
-import {IPresaleRoles} from "@main/interfaces/IPresaleRoles.sol";
+import {IMinter2StepRoles} from "@main/interfaces/IMinter2StepRoles.sol";
 import {Errors} from "@main/shared/Error.sol";
 
 /**
  * @notice Customised 2-step Ownable Contract, preventing setting wrong admin address
  * @dev more details is at https://docs.openzeppelin.com/contracts/4.x/api/access#Ownable2Step
 **/
-contract PresaleRoles is IPresaleRoles{
+contract Minter2StepRoles is IMinter2StepRoles{
 
     /**
      * @notice the address of the current owner, that is able to set new Sanction admin and minter
