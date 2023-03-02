@@ -6,9 +6,11 @@ import {ConstantsFixture}  from "@test/utils/ConstantsFixture.sol";
 import {IERC20Mintable} from "@main/interfaces/IERC20Mintable.sol";
 import {IERC721Mintable} from "@main/interfaces/IERC721Mintable.sol";
 
+import {IERC20} from "@openzeppelin/contracts/token/ERC20/ERC20.sol";
 import {IERC721} from "@openzeppelin/contracts/token/ERC721/IERC721.sol";
 import {IMinter2StepRoles} from "@main/interfaces/IMinter2StepRoles.sol";
 
+import {Errors} from "@main/shared/Error.sol";
 import {ERC20Game} from "@main/ERC20Game.sol";
 import {ERC721Game} from "@main/ERC721Game.sol";
 import {NFTStaking} from "@main/NFTStaking.sol";
@@ -65,10 +67,51 @@ contract TestFixedPricePreSale is ConstantsFixture {
     function test_Constructor() public {
         assertEq( address(nftStaking.gameToken()), address(erc20GameToken) );
         assertEq(  address(nftStaking.gameNFT()), address(erc721GameNFT) );
-        assertEq( nftStaking.rewardPerDay(), 20 );
+        assertEq( nftStaking.rewardPerDay(), 20e18 );
 
         assertEq(IMinter2StepRoles(address(erc20GameToken)).minter(), address(nftStaking)) ;
     }
+
+    function test_RevertWhen_NotTokenOwner_test_mstakeNFT() external {
+
+        vm.startPrank(bob);
+
+        uint256 tokenId = 1;
+
+        dealERC721(address(erc721GameNFT), alice, tokenId);
+
+        vm.expectRevert(
+            abi.encodeWithSelector(Errors.NotAuthorized.selector, bob)
+        );
+
+        nftStaking.stakeNFT(
+            tokenId
+        );
+
+        vm.stopPrank();
+    }
+    // function test_RevertWhen_ALREADY_STAKED_test_stakeNFT() external {
+
+    //     vm.startPrank(alice);
+
+    //     uint256 tokenId = 1;
+
+    //     dealERC721(address(erc721GameNFT), alice, tokenId);
+
+    //     erc721GameNFT.approve(address(nftStaking), tokenId);
+    //     nftStaking.stakeNFT(
+    //         tokenId
+    //     );
+
+    //     vm.expectRevert(
+    //         bytes("ALREADY_STAKED")
+    //     );
+    //     nftStaking.stakeNFT(
+    //         tokenId
+    //     );
+
+    //     vm.stopPrank();
+    // }
 
     function test_stakeNFT() external {
 
@@ -92,7 +135,42 @@ contract TestFixedPricePreSale is ConstantsFixture {
 
         assertEq( owner, alice );
         assertEq( startTime, currentTimestamp );
+
+        vm.stopPrank();
         
+    }
+
+    function test_unStakeNFT() external {
+
+        vm.startPrank(alice);
+
+        uint256 tokenId = 1;
+        uint256 stakingDayPeriod = 2 days;
+        uint256 currentTimestamp = block.timestamp;
+
+        dealERC721(address(erc721GameNFT), alice, tokenId);
+
+        erc721GameNFT.approve(address(nftStaking), tokenId);
+
+        nftStaking.stakeNFT(
+            tokenId
+        );
+
+        vm.warp(staticTime + stakingDayPeriod );
+
+        vm.expectEmit(true, true, true, true, address(erc721GameNFT));
+        emit Transfer(address(nftStaking), alice, tokenId);
+        nftStaking.unStakeNFT(
+            tokenId
+        );
+        ( address owner ,uint256 startTime ) = nftStaking.stakeInfo(tokenId);
+
+        assertEq( owner, address(0) );
+        assertEq( startTime, block.timestamp );
+        assertEq(  IERC20(address(erc20GameToken)).balanceOf(alice), (stakingDayPeriod*nftStaking.rewardPerDay())/1 days );
+
+        vm.stopPrank();
+
     }
 
 

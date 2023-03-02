@@ -42,7 +42,6 @@ contract ERC721Game is ERC721, Minter2StepRoles {
     }
 
     function safeMint(address to) public onlyMinter {
-        
         if (to == address(this)) revert Errors.NotThis();
         uint256 tokenId = _tokenIdCounter.current();
         require (tokenId<MAX_SUPPLY, "EXCEEDS_MAX_SUPPLY");
@@ -54,7 +53,7 @@ contract ERC721Game is ERC721, Minter2StepRoles {
     function ownerMint( address to) external onlyOwner {
         uint256 tokenId = _tokenIdCounter.current();
         require (tokenId<MAX_SUPPLY, "EXCEEDS_MAX_SUPPLY");
-        
+
         _tokenIdCounter.increment();
         _mint(to,tokenId);
     }

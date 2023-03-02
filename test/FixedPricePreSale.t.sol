@@ -95,7 +95,7 @@ contract TestFixedPricePreSale is ConstantsFixture,DeploymentERC721Presale, Depl
     }
 
 
-    function test_RevertWhen_INVALID_PROOF_test_mintWithPresale() public {
+    function test_RevertWhen_INVALID_PROOF_test_mintWithPresale() external {
 
         vm.warp(staticTime + 2 days );
 
