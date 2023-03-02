@@ -97,7 +97,7 @@ contract NFTStaking is IERC721Receiver, Ownable2Step {
 
         gameToken.mint(msg.sender, rewardAmount);
 
-        emit Unstake(msg.sender, block.timestamp, rewardAmount);
+        emit Unstake(msg.sender, tokenId, block.timestamp);
         emit ClaimReward(msg.sender, block.timestamp, rewardAmount);
     }
 

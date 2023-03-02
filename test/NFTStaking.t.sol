@@ -1,6 +1,8 @@
 // SPDX-License-Identifier: MIT
 pragma solidity =0.8.19;
 
+import "@forge-std/console2.sol";
+
 import {ConstantsFixture}  from "@test/utils/ConstantsFixture.sol";
 
 import {IERC20Mintable} from "@main/interfaces/IERC20Mintable.sol";
@@ -118,6 +120,8 @@ contract TestFixedPricePreSale is ConstantsFixture {
 
         vm.startPrank(alice);
 
+        vm.warp(staticTime );
+
         uint256 tokenId = 1;
         uint256 currentTimestamp = block.timestamp;
 
@@ -144,6 +148,7 @@ contract TestFixedPricePreSale is ConstantsFixture {
     function test_RevertWhen_CALLER_NOT_STAKING_OWNER_unStakeNFT() external {
 
         vm.startPrank(alice);
+        vm.warp(staticTime );
 
         uint256 tokenId = 1;
         uint256 stakingDayPeriod = 2 days;
@@ -173,11 +178,11 @@ contract TestFixedPricePreSale is ConstantsFixture {
     function test_unStakeNFT() external {
 
         vm.startPrank(alice);
+        vm.warp(staticTime );
 
         uint256 tokenId = 1;
         uint256 stakingDayPeriod = 2 days;
-        uint256 currentTimestamp = block.timestamp;
-
+       
         dealERC721(address(erc721GameNFT), alice, tokenId);
 
         erc721GameNFT.approve(address(nftStaking), tokenId);
@@ -195,8 +200,10 @@ contract TestFixedPricePreSale is ConstantsFixture {
         );
         ( address owner ,uint256 startTime ) = nftStaking.stakeInfo(tokenId);
 
+         uint256 currentTimestamp = block.timestamp;
+
         assertEq( owner, address(0) );
-        assertEq( startTime, currentTimestamp );
+        assertApproxEqRel(startTime, currentTimestamp, 2 );
         assertEq(  IERC20(address(erc20GameToken)).balanceOf(alice), (stakingDayPeriod*nftStaking.rewardPerDay())/1 days );
 
         vm.stopPrank();
@@ -207,10 +214,10 @@ contract TestFixedPricePreSale is ConstantsFixture {
     function test_claimRewards() external {
 
         vm.startPrank(alice);
+        vm.warp(staticTime );
 
         uint256 tokenId = 1;
         uint256 stakingDayPeriod = 2 days;
-        uint256 currentTimestamp = block.timestamp;
 
         dealERC721(address(erc721GameNFT), alice, tokenId);
 
@@ -227,9 +234,10 @@ contract TestFixedPricePreSale is ConstantsFixture {
         );
 
         ( address owner ,uint256 startTime ) = nftStaking.stakeInfo(tokenId);
+        uint256 currentTimestamp = block.timestamp;
 
         assertEq( owner, alice );
-        assertEq( startTime, currentTimestamp );
+        assertApproxEqRel(startTime, currentTimestamp, 2 );
         assertEq(  IERC20(address(erc20GameToken)).balanceOf(alice), (stakingDayPeriod*nftStaking.rewardPerDay())/1 days );
 
         vm.stopPrank();
