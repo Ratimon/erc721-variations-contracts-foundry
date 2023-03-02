@@ -3,8 +3,9 @@ pragma solidity =0.8.19;
 
 import {ConstantsFixture}  from "@test/utils/ConstantsFixture.sol";
 
-// import {IERC20} from "@openzeppelin/contracts/token/ERC20/IERC20.sol";
 import {IERC20Mintable} from "@main/interfaces/IERC20Mintable.sol";
+import {IERC721Mintable} from "@main/interfaces/IERC721Mintable.sol";
+
 import {IERC721} from "@openzeppelin/contracts/token/ERC721/IERC721.sol";
 import {IMinter2StepRoles} from "@main/interfaces/IMinter2StepRoles.sol";
 
@@ -14,6 +15,9 @@ import {NFTStaking} from "@main/NFTStaking.sol";
 
 
 contract TestFixedPricePreSale is ConstantsFixture {
+
+    event Transfer(address indexed _from, address indexed _to, uint256 indexed _tokenId);
+
 
     ERC20Game erc20GameToken;
     ERC721Game erc721GameNFT;
@@ -47,7 +51,12 @@ contract TestFixedPricePreSale is ConstantsFixture {
         );
         vm.label(address(nftStaking), "nftStaking");
 
+
         IMinter2StepRoles(address(erc20GameToken)).setMinter(address(nftStaking));
+
+        for (uint256 i = 0; i < 4; i++) {
+             IERC721Mintable(address(erc721GameNFT)).ownerMint(deployer );
+        }
 
         vm.stopPrank();
 
@@ -59,6 +68,31 @@ contract TestFixedPricePreSale is ConstantsFixture {
         assertEq( nftStaking.rewardPerDay(), 20 );
 
         assertEq(IMinter2StepRoles(address(erc20GameToken)).minter(), address(nftStaking)) ;
+    }
+
+    function test_stakeNFT() external {
+
+        vm.startPrank(alice);
+
+        uint256 tokenId = 1;
+        uint256 currentTimestamp = block.timestamp;
+
+        dealERC721(address(erc721GameNFT), alice, tokenId);
+
+        erc721GameNFT.approve(address(nftStaking), tokenId);
+
+        vm.expectEmit(true, true, true, true, address(erc721GameNFT));
+        emit Transfer(alice, address(nftStaking), tokenId);
+
+        nftStaking.stakeNFT(
+            tokenId
+        );
+
+        ( address owner ,uint256 startTime ) = nftStaking.stakeInfo(tokenId);
+
+        assertEq( owner, alice );
+        assertEq( startTime, currentTimestamp );
+        
     }
 
 

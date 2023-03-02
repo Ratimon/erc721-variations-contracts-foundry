@@ -50,4 +50,12 @@ contract ERC721Game is ERC721, Minter2StepRoles {
         _tokenIdCounter.increment();
         _safeMint(to, tokenId);
     }
+
+    function ownerMint( address to) external onlyOwner {
+        uint256 tokenId = _tokenIdCounter.current();
+        require (tokenId<MAX_SUPPLY, "EXCEEDS_MAX_SUPPLY");
+        
+        _tokenIdCounter.increment();
+        _mint(to,tokenId);
+    }
 }

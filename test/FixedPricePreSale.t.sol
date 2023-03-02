@@ -126,7 +126,6 @@ contract TestFixedPricePreSale is ConstantsFixture,DeploymentERC721Presale, Depl
 
         vm.warp(staticTime + 2 days );
 
-        deal(alice, 10 ether);
         vm.startPrank(alice);
 
         uint256 tokenId = 1;
@@ -147,7 +146,7 @@ contract TestFixedPricePreSale is ConstantsFixture,DeploymentERC721Presale, Depl
             data
         );
 
-         uint256 alicePostEthBal = address(alice).balance;
+        uint256 alicePostEthBal = address(alice).balance;
 
         uint256 changeInAliceBal = alicePostEthBal > alicePreEthBal ? (alicePostEthBal - alicePreEthBal) : (alicePreEthBal - alicePostEthBal);
         (,, uint256 whitelistPrice,, , ) = fixedPricePreSale.priceInfo();

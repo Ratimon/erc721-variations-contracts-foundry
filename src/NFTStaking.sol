@@ -23,8 +23,6 @@ contract NFTStaking is IERC721Receiver, Ownable2Step {
         uint256 startTime;
     }
 
-    mapping(uint256 => UserInfo) stakes;
-
     /**
      * @notice the ERC20 Game token rewardable
     **/
@@ -39,6 +37,8 @@ contract NFTStaking is IERC721Receiver, Ownable2Step {
      * @notice the reward amount of ERC20 per day i.e. 20 token perday
     **/
     uint256 public rewardPerDay;
+
+    mapping(uint256 => UserInfo) stakes;
 
     /**
      * @notice NFT Staking constructor
@@ -116,6 +116,21 @@ contract NFTStaking is IERC721Receiver, Ownable2Step {
         uint256 oldRewardAmount = _rewardAmount;
         rewardPerDay = _rewardAmount;
         emit RewardPerDaySet(oldRewardAmount, rewardPerDay);
+    }
+
+
+
+    function stakeInfo(
+        uint256 tokenId
+    )
+        external
+        view
+        returns (
+            address owner,
+            uint256 startTime
+        )
+    {
+        return (stakes[tokenId].owner, stakes[tokenId].startTime);
     }
 
     /**
