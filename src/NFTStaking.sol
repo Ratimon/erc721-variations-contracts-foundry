@@ -86,7 +86,7 @@ contract NFTStaking is IERC721Receiver, Ownable2Step {
      */
     function unStakeNFT(uint256 tokenId) external {
         UserInfo memory _stake = stakes[tokenId];
-        require(stakes[tokenId].owner == msg.sender, "CALLER_NOT_STAKING_OWNER");
+        require(_stake.owner == msg.sender, "CALLER_NOT_STAKING_OWNER");
 
         uint256 rewardAmount = calculateRewards(_stake.startTime);
 
@@ -107,7 +107,7 @@ contract NFTStaking is IERC721Receiver, Ownable2Step {
      */
     function claimRewards(uint256 tokenId) external {
         UserInfo memory _stake = stakes[tokenId];
-        require(stakes[tokenId].owner == msg.sender, "CALLER_NOT_STAKING_OWNER");
+        require(_stake.owner == msg.sender, "CALLER_NOT_STAKING_OWNER");
 
         uint256 rewardAmount = calculateRewards(_stake.startTime);
         _stake.startTime = block.timestamp;
