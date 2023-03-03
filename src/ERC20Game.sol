@@ -10,7 +10,6 @@ import {ERC20} from "@openzeppelin/contracts/token/ERC20/ERC20.sol";
  */
 contract ERC20Game is ERC20, Minter2StepRoles {
 
-
         /**
      * @notice ERC20 Game constructor
      * @param _name token name for ERC20 Game

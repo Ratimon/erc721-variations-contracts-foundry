@@ -11,7 +11,7 @@ contract ERC721EnumerableCollection is ERC721Enumerable, Minter2StepRoles {
 
     using Counters for Counters.Counter;
 
-    uint256 public constant MAX_SUPPLY = 20;
+    uint256 public constant MAX_SUPPLY = 21;
 
     Counters.Counter private _tokenIdCounter;
 
@@ -28,6 +28,8 @@ contract ERC721EnumerableCollection is ERC721Enumerable, Minter2StepRoles {
         address  initialOwner,
         address  initialMinter
     ) ERC721(_name, _symbol) Minter2StepRoles(initialOwner,initialMinter) {
+        _tokenIdCounter.increment();
+        require(_tokenIdCounter.current() == 1, "INITIAL_TOKEN_ID_MUST_BE_ONE");
     }
 
 
