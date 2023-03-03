@@ -146,14 +146,14 @@ contract NFTStaking is IERC721Receiver, Ownable2Step {
     }
 
     /**
-     * @notice The calcul is based on 10 tokens every 24 hours
-     * @param depositTimestamp Time to start calculation
-     * @return The rewards reporteda
+     * @notice calculate the reward
+     * @param depositTimestamp  timestamp as starting point to calcualte reward
+     * @return The rewards reported
      */
     function calculateRewards(uint256 depositTimestamp) public view returns(uint256) {
-        uint256 _timeSinceDeposit = block.timestamp - depositTimestamp;
-        uint256 _calculatedRewards = (_timeSinceDeposit * rewardPerDay() ) / 1 days;
-        return _calculatedRewards;
+        uint256 timeSinceDeposit = block.timestamp - depositTimestamp;
+        uint256 calculatedRewards = (timeSinceDeposit * rewardPerDay() ) / 1 days;
+        return calculatedRewards;
     }
 
     /**
