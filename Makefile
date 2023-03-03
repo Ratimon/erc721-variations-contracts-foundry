@@ -17,6 +17,9 @@ unit-test-FixedPricePreSale:
 unit-test-NFTStaking:
 	forge test --match-path test/NFTStaking.t.sol -vvv
 
+unit-test-IsIdPrime:
+	forge test --match-path test/IsIdPrime.t.sol -vvv
+
 snapshot-NFTStaking:
 	forge snapshot --match-path test/NFTStaking.t.sol --no-match-test "test(Fork)?(Fuzz)?_RevertWhen_\w{1,}?"
 

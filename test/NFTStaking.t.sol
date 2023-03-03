@@ -5,11 +5,11 @@ import "@forge-std/console2.sol";
 
 import {ConstantsFixture}  from "@test/utils/ConstantsFixture.sol";
 
-import {IERC20Mintable} from "@main/interfaces/IERC20Mintable.sol";
-import {IERC721Mintable} from "@main/interfaces/IERC721Mintable.sol";
-
 import {IERC20} from "@openzeppelin/contracts/token/ERC20/ERC20.sol";
 import {IERC721} from "@openzeppelin/contracts/token/ERC721/IERC721.sol";
+
+import {IERC20Mintable} from "@main/interfaces/IERC20Mintable.sol";
+import {IERC721Mintable} from "@main/interfaces/IERC721Mintable.sol";
 import {IMinter2StepRoles} from "@main/interfaces/IMinter2StepRoles.sol";
 
 import {Errors} from "@main/shared/Error.sol";
@@ -21,7 +21,6 @@ import {NFTStaking} from "@main/NFTStaking.sol";
 contract TestFixedPricePreSale is ConstantsFixture {
 
     event Transfer(address indexed _from, address indexed _to, uint256 indexed _tokenId);
-
     event ClaimReward(address indexed receiver, uint256 indexed timestamp, uint256 rewardAmount);
 
     ERC20Game erc20GameToken;
@@ -42,7 +41,6 @@ contract TestFixedPricePreSale is ConstantsFixture {
             'GameToken', "REWARD", msg.sender, msg.sender
         );
         vm.label(address(erc20GameToken), "erc20GameToken");
-
 
         erc721GameNFT = new ERC721Game(
             'GameNFT', "NFT", msg.sender, msg.sender
@@ -117,7 +115,6 @@ contract TestFixedPricePreSale is ConstantsFixture {
     // }
 
     function test_stakeNFT() external {
-
         vm.startPrank(alice);
 
         vm.warp(staticTime );
@@ -176,7 +173,6 @@ contract TestFixedPricePreSale is ConstantsFixture {
     }
 
     function test_unStakeNFT() external {
-
         vm.startPrank(alice);
         vm.warp(staticTime );
 
