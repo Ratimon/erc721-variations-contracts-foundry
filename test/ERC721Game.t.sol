@@ -52,14 +52,15 @@ contract TestERC721Game is ConstantsFixture {
         vm.stopPrank();
     }
 
-    function test_RevertWhen_NotAuthorized_ownerMint() external {
+    function test_RevertWhen_NotThis_safeMint() external {
 
-        vm.startPrank(bob);
+        vm.startPrank(deployer);
 
         vm.expectRevert(
-            abi.encodeWithSelector(Errors.NotAuthorized.selector, bob)
+            abi.encodeWithSelector(Errors.NotThis.selector)
         );
-        IERC721Mintable(address(erc721GameNFT)).ownerMint(bob );
+
+        IERC721Mintable(address(erc721GameNFT)).safeMint(address(erc721GameNFT));
 
         vm.stopPrank();
     }
@@ -96,6 +97,20 @@ contract TestERC721Game is ConstantsFixture {
         vm.stopPrank();
     }
 
+    function test_RevertWhen_NotAuthorized_ownerMint() external {
+
+        vm.startPrank(bob);
+
+        vm.expectRevert(
+            abi.encodeWithSelector(Errors.NotAuthorized.selector, bob)
+        );
+        IERC721Mintable(address(erc721GameNFT)).ownerMint(bob );
+
+        vm.stopPrank();
+    }
+    
+
+
     function test_RevertWhen_EXCEEDS_MAX_SUPPLY_ownerMint() external {
 
         vm.startPrank(deployer);
@@ -106,7 +121,7 @@ contract TestERC721Game is ConstantsFixture {
         vm.expectRevert(
             bytes("EXCEEDS_MAX_SUPPLY")
         );
-        IERC721Mintable(address(erc721GameNFT)).safeMint(deployer );
+        IERC721Mintable(address(erc721GameNFT)).ownerMint(deployer );
         vm.stopPrank();
 
     }
