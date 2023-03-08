@@ -11,11 +11,12 @@ anvil-node:
 fork-node: 
 	ETH_RPC_URL=$(call network,mainnet) FORK_BLOCK_NUMBER=$(call block_number) LOCAL_CHAIN_ID=$(call local_chain_id)  bash ./utils/node.sh
 
+
+# Test
 unit-test-FixedPricePreSale:
 	forge test --match-path test/FixedPricePreSale.t.sol -vvv
 
-
-unit-test-TestERC721Game:
+unit-test-ERC721Game:
 	forge test --match-path test/ERC721Game.t.sol -vvv
 	
 unit-test-NFTStaking:
@@ -27,9 +28,19 @@ unit-test-IsIdPrime:
 snapshot-NFTStaking:
 	forge snapshot --match-path test/NFTStaking.t.sol --no-match-test "test(Fork)?(Fuzz)?_RevertWhen_\w{1,}?"
 
+# Audit
 coverage:
 	forge coverage --report lcov && genhtml lcov.info --branch-coverage --output-dir coverage
 
+slither-storage-ERC20Game:
+	slither-read-storage src/ERC20Game.sol --solc-remaps "@openzeppelin/=lib/openzeppelin-contracts/ @main/=src/"
+
+slither-invariant-ERC20Game:
+	slither-prop src/ERC20Game.sol --contract ERC20Game --solc-remaps "@openzeppelin/=lib/openzeppelin-contracts/ @main/=src/"
+
+slither-validate-ERC20Game:
+	slither-check-erc src/ERC20Game.sol ERC20Game --solc-remaps "@openzeppelin/=lib/openzeppelin-contracts/ @main/=src/"
+	
 generate-merkle-root:
 	yarn hardhat run utils/merkletree/getRootHashScript.ts
 
