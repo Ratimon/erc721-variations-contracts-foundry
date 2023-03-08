@@ -40,6 +40,31 @@ contract TestERC721Game is ConstantsFixture {
     }
 
 
+    function test_RevertWhen_NotAuthorized_safeMint() external {
+
+        vm.startPrank(bob);
+
+        vm.expectRevert(
+            abi.encodeWithSelector(Errors.NotAuthorized.selector, bob)
+        );
+        IERC721Mintable(address(erc721GameNFT)).safeMint(bob );
+
+        vm.stopPrank();
+    }
+
+    function test_RevertWhen_NotAuthorized_ownerMint() external {
+
+        vm.startPrank(bob);
+
+        vm.expectRevert(
+            abi.encodeWithSelector(Errors.NotAuthorized.selector, bob)
+        );
+        IERC721Mintable(address(erc721GameNFT)).ownerMint(bob );
+
+        vm.stopPrank();
+    }
+
+
     function test_RevertWhen_EXCEEDS_MAX_SUPPLY_safeMint() external {
 
         vm.startPrank(deployer);
