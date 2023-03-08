@@ -29,3 +29,7 @@ This illustrate the ERC721 variations
 - Quick Guide & Tutorial to Use Template
 
 - Read more [`here`](./docs/1_SETUP.md).
+
+## 2. 🔏 Audit Report
+
+- Read more [`here`](./audit/).

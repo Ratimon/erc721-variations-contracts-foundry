@@ -20,9 +20,35 @@ foundryup
 
 > To update **foundryup** after installation, simply run **foundryup** again, and it will update to the latest Foundry release. You can also revert to a specific version of Foundry with **foundryup -v $VERSION**.
 
+
+## Installing slither and Quick guide to Audit
+
+Make sure  **Slither** and **Slither** are installed.
+
+Then, choose the correct solc version for the target contract(s) – e.g. if we need 0.8.19:
+
+```bash
+solc-select install 0.8.19
+solc-select use 0.8.19
+```
+
+Then, run Slither against a single file:
+```bash
+slither mycontract.sol
+```
+
+> :warning: *Tip**
+
+> To specify remapping path, use:
+
+```bash
+--solc-remaps "@openzeppelin-upgradable/=lib/openzeppelin-contracts-upgradeable/ @openzeppelin/=lib/openzeppelin-contracts/"
+```
+
+
 ## 🏗 Quick Guide & Tutorial to Use Template
 
-Make sure [Foundry](https://book.getfoundry.sh/) is installed.
+Make sure [Foundry](https://book.getfoundry.sh/) and [Make](https://askubuntu.com/questions/161104/how-do-i-install-make) are installed.
 
 1. Clone the repository:
 
