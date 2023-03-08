@@ -166,7 +166,7 @@ contract NFTStaking is IERC721Receiver, Ownable2Step {
         uint256,
         bytes memory
     ) public virtual override returns (bytes4) {
-        require(address(gameNFT) == msg.sender, "CALLER_NOT_NFT_CONTRACT");
+        // require(address(gameNFT) == msg.sender, "CALLER_NOT_NFT_CONTRACT");
         return this.onERC721Received.selector;
     }
 }

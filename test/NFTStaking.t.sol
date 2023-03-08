@@ -126,10 +126,8 @@ contract TestFixedPricePreSale is ConstantsFixture {
         dealERC721(address(erc721GameNFT), alice, tokenId);
 
         erc721GameNFT.approve(address(nftStaking), tokenId);
-
         vm.expectEmit(true, true, true, true, address(erc721GameNFT));
         emit Transfer(alice, address(nftStaking), tokenId);
-
         nftStaking.stakeNFT(
             tokenId
         );
@@ -154,7 +152,6 @@ contract TestFixedPricePreSale is ConstantsFixture {
         dealERC721(address(erc721GameNFT), alice, tokenId);
 
         erc721GameNFT.approve(address(nftStaking), tokenId);
-
         nftStaking.stakeNFT(
             tokenId
         );
@@ -207,6 +204,33 @@ contract TestFixedPricePreSale is ConstantsFixture {
 
     }
 
+    function test_RevertWhen_CALLER_NOT_STAKING_OWNER_claimRewards() external {
+        vm.startPrank(alice);
+        vm.warp(staticTime );
+
+        uint256 tokenId = 1;
+        uint256 stakingDayPeriod = 2 days;
+
+        dealERC721(address(erc721GameNFT), alice, tokenId);
+
+        erc721GameNFT.approve(address(nftStaking), tokenId);
+        nftStaking.stakeNFT(
+            tokenId
+        );
+        vm.stopPrank();
+
+        vm.startPrank(bob);
+        vm.warp(staticTime + stakingDayPeriod );
+        vm.expectRevert(
+            bytes("CALLER_NOT_STAKING_OWNER")
+        );
+        nftStaking.claimRewards(
+            tokenId
+        );
+        vm.stopPrank();
+
+    }
+
 
     function test_claimRewards() external {
         vm.startPrank(alice);
@@ -218,7 +242,6 @@ contract TestFixedPricePreSale is ConstantsFixture {
         dealERC721(address(erc721GameNFT), alice, tokenId);
 
         erc721GameNFT.approve(address(nftStaking), tokenId);
-
         nftStaking.stakeNFT(
             tokenId
         );
@@ -228,7 +251,6 @@ contract TestFixedPricePreSale is ConstantsFixture {
         nftStaking.claimRewards(
             tokenId
         );
-
         ( address owner ,uint256 startTime ) = nftStaking.stakeInfo(tokenId);
         uint256 currentTimestamp = block.timestamp;
 
@@ -237,7 +259,6 @@ contract TestFixedPricePreSale is ConstantsFixture {
         assertEq(  IERC20(address(erc20GameToken)).balanceOf(alice), (stakingDayPeriod*nftStaking.rewardPerDay())/1 days );
 
         vm.stopPrank();
-
     }
     
     function test_setRewardPerDay() external {
