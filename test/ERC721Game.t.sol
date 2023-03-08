@@ -31,17 +31,29 @@ contract TestERC721Game is ConstantsFixture {
 
         vm.startPrank(deployer);
 
-
         erc721GameNFT = new ERC721Game(
             'GameNFT', "NFT", msg.sender, msg.sender
         );
         vm.label(address(erc721GameNFT), "erc721GameNFT");
+        vm.stopPrank();
+
+    }
 
 
-        // for (uint256 i = 0; i < 4; i++) {
-        //      IERC721Mintable(address(erc721GameNFT)).ownerMint(deployer );
-        // }
+    function test_RevertWhen_EXCEEDS_MAX_SUPPLY_safeMint() external {
 
+        vm.startPrank(deployer);
+        for (uint256 i = 0; i < 20; i++) {
+             IERC721Mintable(address(erc721GameNFT)).ownerMint(deployer );
+        }
+        IMinter2StepRoles(address(erc721GameNFT)).setMinter(alice);
+        vm.stopPrank();
+
+        vm.startPrank(alice);
+        vm.expectRevert(
+            bytes("EXCEEDS_MAX_SUPPLY")
+        );
+        IERC721Mintable(address(erc721GameNFT)).safeMint(alice );
         vm.stopPrank();
 
     }
