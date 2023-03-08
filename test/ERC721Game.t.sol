@@ -47,7 +47,6 @@ contract TestERC721Game is ConstantsFixture {
     }
 
     function test_safeMint() external {
-
         vm.startPrank(deployer);
         IMinter2StepRoles(address(erc721GameNFT)).setMinter(alice);
         vm.stopPrank();
@@ -58,8 +57,17 @@ contract TestERC721Game is ConstantsFixture {
         emit Transfer(address(0), alice, tokenId);
         IERC721Mintable(address(erc721GameNFT)).safeMint(alice );
         vm.stopPrank();
-
     }
+
+    function test_ownerMint() external {
+        vm.startPrank(deployer);
+        uint256 tokenId = 0;
+        vm.expectEmit(true, true, true, true, address(erc721GameNFT));
+        emit Transfer(address(0), deployer, tokenId);
+        IERC721Mintable(address(erc721GameNFT)).ownerMint(deployer );
+        vm.stopPrank();
+    }
+
 
 
 }
