@@ -123,7 +123,7 @@ contract NFTStaking is IERC721Receiver, Ownable2Step {
      * @param _rewardAmount account to be sanctioned
      */
     function setRewardPerDay(uint256 _rewardAmount) external onlyOwner {
-        uint256 oldRewardAmount = _rewardAmount;
+        uint256 oldRewardAmount = _rewardPerDay;
         _rewardPerDay = _rewardAmount;
         emit RewardPerDaySet(oldRewardAmount, _rewardPerDay);
     }

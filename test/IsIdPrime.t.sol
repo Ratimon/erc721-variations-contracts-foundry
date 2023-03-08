@@ -8,7 +8,6 @@ import {ConstantsFixture}  from "@test/utils/ConstantsFixture.sol";
 import {IERC721Mintable} from "@main/interfaces/IERC721Mintable.sol";
 
 import {Errors} from "@main/shared/Error.sol";
-
 import {ERC721EnumerableCollection} from "@main/ERC721EnumerableCollection.sol";
 import {IsIdPrime} from "@main/IsIdPrime.sol";
 

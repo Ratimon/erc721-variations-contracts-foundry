@@ -22,6 +22,7 @@ contract TestFixedPricePreSale is ConstantsFixture {
 
     event Transfer(address indexed _from, address indexed _to, uint256 indexed _tokenId);
     event ClaimReward(address indexed receiver, uint256 indexed timestamp, uint256 rewardAmount);
+    event RewardPerDaySet(uint256 indexed previousRewardPerDay, uint256 newRewardPerDay);
 
     ERC20Game erc20GameToken;
     ERC721Game erc721GameNFT;
@@ -208,7 +209,6 @@ contract TestFixedPricePreSale is ConstantsFixture {
 
 
     function test_claimRewards() external {
-
         vm.startPrank(alice);
         vm.warp(staticTime );
 
@@ -239,8 +239,20 @@ contract TestFixedPricePreSale is ConstantsFixture {
         vm.stopPrank();
 
     }
+    
+    function test_setRewardPerDay() external {
+        vm.startPrank(deployer);
 
+        vm.expectEmit(true,true,false,false);
+        emit RewardPerDaySet(20,40);
+        nftStaking.setRewardPerDay(40);
+        
+        assertEq(nftStaking.rewardPerDay(), 40e18);
 
+        vm.stopPrank();
+
+    }
+    
 
 
 }
