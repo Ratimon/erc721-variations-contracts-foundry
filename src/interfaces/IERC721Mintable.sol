@@ -7,5 +7,7 @@ interface IERC721Mintable is IERC721{
 
     // ----------- State changing Api -----------
 
+    function safeMint(address to) external;
+
     function ownerMint(address to) external;
 }

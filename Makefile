@@ -14,6 +14,10 @@ fork-node:
 unit-test-FixedPricePreSale:
 	forge test --match-path test/FixedPricePreSale.t.sol -vvv
 
+
+unit-test-TestERC721Game:
+	forge test --match-path test/ERC721Game.t.sol -vvv
+	
 unit-test-NFTStaking:
 	forge test --match-path test/NFTStaking.t.sol -vvv
 

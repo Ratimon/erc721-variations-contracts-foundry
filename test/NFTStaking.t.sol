@@ -55,13 +55,10 @@ contract TestFixedPricePreSale is ConstantsFixture {
         );
         vm.label(address(nftStaking), "nftStaking");
 
-
         IMinter2StepRoles(address(erc20GameToken)).setMinter(address(nftStaking));
-
         for (uint256 i = 0; i < 4; i++) {
              IERC721Mintable(address(erc721GameNFT)).ownerMint(deployer );
         }
-
         vm.stopPrank();
 
     }
