@@ -71,6 +71,21 @@ contract TestERC721Game is ConstantsFixture {
         vm.stopPrank();
     }
 
+    function test_RevertWhen_EXCEEDS_MAX_SUPPLY_ownerMint() external {
+
+        vm.startPrank(deployer);
+        for (uint256 i = 0; i < 20; i++) {
+             IERC721Mintable(address(erc721GameNFT)).ownerMint(deployer );
+        }
+
+        vm.expectRevert(
+            bytes("EXCEEDS_MAX_SUPPLY")
+        );
+        IERC721Mintable(address(erc721GameNFT)).safeMint(deployer );
+        vm.stopPrank();
+
+    }
+
     function test_ownerMint() external {
         vm.startPrank(deployer);
         uint256 tokenId = 0;
