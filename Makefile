@@ -46,14 +46,30 @@ slither-invariant-ERC20Game:
 slither-validate-ERC20Game:
 	slither-check-erc src/ERC20Game.sol ERC20Game --solc-remaps "@openzeppelin/=lib/openzeppelin-contracts/ @main/=src/"
 
-slither-findings-ERC721Game:
-	slither src/ERC721Game.sol --solc-remaps "@openzeppelin/=lib/openzeppelin-contracts/ @main/=src/"
-	
-slither-findings-ERC721Game:
-	slither src/ERC721Game.sol --solc-remaps "@openzeppelin/=lib/openzeppelin-contracts/ @main/=src/"
+
 
 slither-findings-ERC721Game:
 	slither src/ERC721Game.sol --solc-remaps "@openzeppelin/=lib/openzeppelin-contracts/ @main/=src/"
+	
+slither-storage-ERC721Game:
+	slither-read-storage src/ERC721Game.sol --solc-remaps "@openzeppelin/=lib/openzeppelin-contracts/ @main/=src/"
+
+slither-invariant-ERC721Game:
+	slither-prop src/ERC721Game.sol --solc-remaps "@openzeppelin/=lib/openzeppelin-contracts/ @main/=src/"
+
+
+
+slither-findings-NFTStaking:
+	slither src/NFTStaking.sol --solc-remaps "@openzeppelin/=lib/openzeppelin-contracts/ @main/=src/"
+	
+slither-storage-NFTStaking:
+	slither-read-storage src/NFTStaking.sol --solc-remaps "@openzeppelin/=lib/openzeppelin-contracts/ @main/=src/"
+
+slither-invariant-NFTStaking:
+	slither-prop src/NFTStaking.sol --solc-remaps "@openzeppelin/=lib/openzeppelin-contracts/ @main/=src/"
+
+
+
 
 check-api-key:
 ifndef ALCHEMY_API_KEY
