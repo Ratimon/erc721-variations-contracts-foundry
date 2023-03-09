@@ -68,11 +68,20 @@ slither-storage-NFTStaking:
 slither-invariant-NFTStaking:
 	slither-prop src/NFTStaking.sol --solc-remaps "@openzeppelin/=lib/openzeppelin-contracts/ @main/=src/"
 
+
+
 slither-findings-ERC721Presale:
 	slither src/ERC721Presale.sol --solc-remaps "@openzeppelin/=lib/openzeppelin-contracts/ @main/=src/"
 
 slither-findings-FixedPricePreSale:
 	slither src/FixedPricePreSale.sol --solc-remaps "@openzeppelin/=lib/openzeppelin-contracts/ @main/=src/"
+
+
+slither-findings-ERC721EnumerableCollection:
+	slither src/ERC721EnumerableCollection.sol --solc-remaps "@openzeppelin/=lib/openzeppelin-contracts/ @main/=src/"
+
+slither-findings-IsIdPrime:
+	slither src/IsIdPrime.sol --solc-remaps "@openzeppelin/=lib/openzeppelin-contracts/ @main/=src/"
 
 
 check-api-key:
