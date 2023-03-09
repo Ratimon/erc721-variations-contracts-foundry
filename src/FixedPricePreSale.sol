@@ -4,6 +4,7 @@ pragma solidity =0.8.19;
 import {ISale} from "@main/interfaces/ISale.sol";
 import {ERC721Presale} from "@main/ERC721Presale.sol";
 
+import {Address} from "@openzeppelin/contracts/utils/Address.sol";
 import {ECDSA} from "@openzeppelin/contracts/utils/cryptography/ECDSA.sol";
 import {MerkleProof} from "@openzeppelin/contracts/utils/cryptography/MerkleProof.sol";
 import {BitMaps} from "@openzeppelin/contracts/utils/structs/BitMaps.sol";
@@ -11,6 +12,7 @@ import {BitMaps} from "@openzeppelin/contracts/utils/structs/BitMaps.sol";
 
 contract FixedPricePreSale is ISale {
 
+    using Address for address payable;
     using ECDSA for bytes32;
     using BitMaps for BitMaps.BitMap;
 
@@ -103,7 +105,7 @@ contract FixedPricePreSale is ISale {
         }
 
         if (expectedValue > 0) {
-            _saleRecipient.transfer(expectedValue);
+            _saleRecipient.sendValue(expectedValue);
         }
 
         _erc721Presale.safeMint(tokenId, to);

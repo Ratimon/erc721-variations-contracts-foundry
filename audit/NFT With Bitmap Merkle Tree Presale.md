@@ -1,4 +1,7 @@
-# Audit Reportfor ERC20Game
+# Audit Reportfor NFT With Bitmap Merkle Tree Presale
+
+-  ERC721Presale.sol
+-  FixedPricePreSale.sol
 
 ## Risk Rating
 
@@ -14,7 +17,13 @@ To prioritize the vulnerabilities, we have adopted the scheme of five distinct l
 
 - Informational : Findings in this category are informational and may be further improved by following best practices and guidelines.
 
-## Detailed Results
+## Detailed Results for FixedPricePreSale.sol
+
+
+-  High : FixedPricePreSale._payAndMint(uint256,address) (src/FixedPricePreSale.sol#96-110) sends eth to arbitrary user
+	Dangerous calls:
+	- _saleRecipient.transfer(expectedValue) (src/FixedPricePreSale.sol#106)
+Reference: https://github.com/crytic/slither/wiki/Detector-Documentation#functions-that-send-ether-to-arbitrary-destinations
 
 - Informational : solc-0.8.19 is not recommended for deployment
 Reference: https://github.com/crytic/slither/wiki/Detector-Documentation#incorrect-versions-of-solidity

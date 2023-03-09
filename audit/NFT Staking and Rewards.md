@@ -1,4 +1,8 @@
-# Audit Reportfor NFTStaking
+# Audit Reportfor ERC20Game
+
+-  ERC20Game.sol
+-  ERC721Game.sol
+-  NFTStaking.sol
 
 ## Risk Rating
 
@@ -14,7 +18,7 @@ To prioritize the vulnerabilities, we have adopted the scheme of five distinct l
 
 - Informational : Findings in this category are informational and may be further improved by following best practices and guidelines.
 
-## Detailed Results
+## Detailed Results for  ERC20Game / ERC721Game / NFTStaking
 
 - Informational : solc-0.8.19 is not recommended for deployment
 Reference: https://github.com/crytic/slither/wiki/Detector-Documentation#incorrect-versions-of-solidity
