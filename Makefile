@@ -11,6 +11,8 @@ anvil-node:
 fork-node: 
 	ETH_RPC_URL=$(call network,mainnet) FORK_BLOCK_NUMBER=$(call block_number) LOCAL_CHAIN_ID=$(call local_chain_id)  bash ./utils/node.sh
 
+generate-merkle-root:
+	yarn hardhat getRootHash
 
 # Test
 unit-test-FixedPricePreSale:
@@ -32,6 +34,9 @@ snapshot-NFTStaking:
 coverage:
 	forge coverage --report lcov && genhtml lcov.info --branch-coverage --output-dir coverage
 
+slither-findings-ERC20Game:
+	slither src/ERC20Game.sol --solc-remaps "@openzeppelin/=lib/openzeppelin-contracts/ @main/=src/"
+
 slither-storage-ERC20Game:
 	slither-read-storage src/ERC20Game.sol --solc-remaps "@openzeppelin/=lib/openzeppelin-contracts/ @main/=src/"
 
@@ -40,9 +45,15 @@ slither-invariant-ERC20Game:
 
 slither-validate-ERC20Game:
 	slither-check-erc src/ERC20Game.sol ERC20Game --solc-remaps "@openzeppelin/=lib/openzeppelin-contracts/ @main/=src/"
+
+slither-findings-ERC721Game:
+	slither src/ERC721Game.sol --solc-remaps "@openzeppelin/=lib/openzeppelin-contracts/ @main/=src/"
 	
-generate-merkle-root:
-	yarn hardhat run utils/merkletree/getRootHashScript.ts
+slither-findings-ERC721Game:
+	slither src/ERC721Game.sol --solc-remaps "@openzeppelin/=lib/openzeppelin-contracts/ @main/=src/"
+
+slither-findings-ERC721Game:
+	slither src/ERC721Game.sol --solc-remaps "@openzeppelin/=lib/openzeppelin-contracts/ @main/=src/"
 
 check-api-key:
 ifndef ALCHEMY_API_KEY
