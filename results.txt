@@ -1,0 +1,929 @@
+Mutation testing report:
+Number of mutations:    84
+Killed:                 16 / 84
+
+Mutations:
+Mutation:
+    File: /Users/rati/Projects/research/advanced_solidity/erc721-variations-contracts-foundry/src/ERC721EnumerableCollection.sol
+    Line nr: 31
+    Result: Lived
+    Original line:
+                 require(_tokenIdCounter.current() == 1, "INITIAL_TOKEN_ID_MUST_BE_ONE");
+
+    Mutated line:
+                 require(_tokenIdCounter.current() != 1, "INITIAL_TOKEN_ID_MUST_BE_ONE");
+
+
+Mutation:
+    File: /Users/rati/Projects/research/advanced_solidity/erc721-variations-contracts-foundry/src/ERC721EnumerableCollection.sol
+    Line nr: 47
+    Result: Lived
+    Original line:
+                 if (to == address(this)) revert Errors.NotThis();
+
+    Mutated line:
+                 if (to != address(this)) revert Errors.NotThis();
+
+
+Mutation:
+    File: /Users/rati/Projects/research/advanced_solidity/erc721-variations-contracts-foundry/src/ERC721EnumerableCollection.sol
+    Line nr: 49
+    Result: Lived
+    Original line:
+                 require (tokenId<MAX_SUPPLY, "EXCEEDS_MAX_SUPPLY");
+
+    Mutated line:
+                 require (tokenId <= MAX_SUPPLY, "EXCEEDS_MAX_SUPPLY");
+
+
+Mutation:
+    File: /Users/rati/Projects/research/advanced_solidity/erc721-variations-contracts-foundry/src/ERC721EnumerableCollection.sol
+    Line nr: 57
+    Result: Lived
+    Original line:
+                 require (tokenId<MAX_SUPPLY, "EXCEEDS_MAX_SUPPLY");
+
+    Mutated line:
+                 require (tokenId <= MAX_SUPPLY, "EXCEEDS_MAX_SUPPLY");
+
+
+Mutation:
+    File: /Users/rati/Projects/research/advanced_solidity/erc721-variations-contracts-foundry/src/ERC721EnumerableCollection.sol
+    Line nr: 31
+    Result: Lived
+    Original line:
+                 require(_tokenIdCounter.current() == 1, "INITIAL_TOKEN_ID_MUST_BE_ONE");
+
+    Mutated line:
+                 require(_tokenIdCounter.current() != 1, "INITIAL_TOKEN_ID_MUST_BE_ONE");
+
+
+Mutation:
+    File: /Users/rati/Projects/research/advanced_solidity/erc721-variations-contracts-foundry/src/ERC721EnumerableCollection.sol
+    Line nr: 36
+    Result: Lived
+    Original line:
+                 if (_owner != msg.sender) revert Errors.NotAuthorized(msg.sender);
+
+    Mutated line:
+                 if (_owner == msg.sender) revert Errors.NotAuthorized(msg.sender);
+
+
+Mutation:
+    File: /Users/rati/Projects/research/advanced_solidity/erc721-variations-contracts-foundry/src/ERC721EnumerableCollection.sol
+    Line nr: 42
+    Result: Lived
+    Original line:
+                 if (_minter != msg.sender) revert Errors.NotAuthorized(msg.sender);
+
+    Mutated line:
+                 if (_minter == msg.sender) revert Errors.NotAuthorized(msg.sender);
+
+
+Mutation:
+    File: /Users/rati/Projects/research/advanced_solidity/erc721-variations-contracts-foundry/src/ERC721EnumerableCollection.sol
+    Line nr: 47
+    Result: Lived
+    Original line:
+                 if (to == address(this)) revert Errors.NotThis();
+
+    Mutated line:
+                 if (to != address(this)) revert Errors.NotThis();
+
+
+Mutation:
+    File: /Users/rati/Projects/research/advanced_solidity/erc721-variations-contracts-foundry/src/ERC721EnumerableCollection.sol
+    Line nr: 49
+    Result: Lived
+    Original line:
+                 require (tokenId<MAX_SUPPLY, "EXCEEDS_MAX_SUPPLY");
+
+    Mutated line:
+                 require (tokenId >= MAX_SUPPLY, "EXCEEDS_MAX_SUPPLY");
+
+
+Mutation:
+    File: /Users/rati/Projects/research/advanced_solidity/erc721-variations-contracts-foundry/src/ERC721EnumerableCollection.sol
+    Line nr: 57
+    Result: Lived
+    Original line:
+                 require (tokenId<MAX_SUPPLY, "EXCEEDS_MAX_SUPPLY");
+
+    Mutated line:
+                 require (tokenId >= MAX_SUPPLY, "EXCEEDS_MAX_SUPPLY");
+
+
+Mutation:
+    File: /Users/rati/Projects/research/advanced_solidity/erc721-variations-contracts-foundry/src/ERC721EnumerableCollection.sol
+    Line nr: 52
+    Result: Lived
+    Original line:
+                 _safeMint(to, tokenId);
+
+    Mutated line:
+                 
+
+
+Mutation:
+    File: /Users/rati/Projects/research/advanced_solidity/erc721-variations-contracts-foundry/src/ERC721EnumerableCollection.sol
+    Line nr: 60
+    Result: Lived
+    Original line:
+                 _mint(to,tokenId);
+
+    Mutated line:
+                 
+
+
+Mutation:
+    File: /Users/rati/Projects/research/advanced_solidity/erc721-variations-contracts-foundry/src/ERC721EnumerableCollection.sol
+    Line nr: 29
+    Result: Error
+    Original line:
+             ) ERC721(_name, _symbol) Minter2StepRoles(initialOwner,initialMinter) {
+
+    Mutated line:
+             )  Minter2StepRoles(initialOwner,initialMinter) {
+
+
+Mutation:
+    File: /Users/rati/Projects/research/advanced_solidity/erc721-variations-contracts-foundry/src/ERC721EnumerableCollection.sol
+    Line nr: 29
+    Result: Error
+    Original line:
+             ) ERC721(_name, _symbol) Minter2StepRoles(initialOwner,initialMinter) {
+
+    Mutated line:
+             ) ERC721(_name, _symbol)  {
+
+
+Mutation:
+    File: /Users/rati/Projects/research/advanced_solidity/erc721-variations-contracts-foundry/src/ERC721EnumerableCollection.sol
+    Line nr: 46
+    Result: Lived
+    Original line:
+             function safeMint(address to) public onlyMinter {
+
+    Mutated line:
+             function safeMint(address to) public  {
+
+
+Mutation:
+    File: /Users/rati/Projects/research/advanced_solidity/erc721-variations-contracts-foundry/src/ERC721EnumerableCollection.sol
+    Line nr: 55
+    Result: Lived
+    Original line:
+             function ownerMint( address to) external onlyOwner {
+
+    Mutated line:
+             function ownerMint( address to) external  {
+
+
+Mutation:
+    File: /Users/rati/Projects/research/advanced_solidity/erc721-variations-contracts-foundry/src/NFTStaking.sol
+    Line nr: 88
+    Result: Lived
+    Original line:
+                 require(_stake.owner == msg.sender, "CALLER_NOT_STAKING_OWNER");
+
+    Mutated line:
+                 require(_stake.owner != msg.sender, "CALLER_NOT_STAKING_OWNER");
+
+
+Mutation:
+    File: /Users/rati/Projects/research/advanced_solidity/erc721-variations-contracts-foundry/src/NFTStaking.sol
+    Line nr: 109
+    Result: Lived
+    Original line:
+                 require(_stake.owner == msg.sender, "CALLER_NOT_STAKING_OWNER");
+
+    Mutated line:
+                 require(_stake.owner != msg.sender, "CALLER_NOT_STAKING_OWNER");
+
+
+Mutation:
+    File: /Users/rati/Projects/research/advanced_solidity/erc721-variations-contracts-foundry/src/NFTStaking.sol
+    Line nr: 63
+    Result: Lived
+    Original line:
+                 if (gameNFT.ownerOf(_tokenId) != msg.sender) revert Errors.NotAuthorized(msg.sender);
+
+    Mutated line:
+                 if (gameNFT.ownerOf(_tokenId) == msg.sender) revert Errors.NotAuthorized(msg.sender);
+
+
+Mutation:
+    File: /Users/rati/Projects/research/advanced_solidity/erc721-variations-contracts-foundry/src/NFTStaking.sol
+    Line nr: 88
+    Result: Lived
+    Original line:
+                 require(_stake.owner == msg.sender, "CALLER_NOT_STAKING_OWNER");
+
+    Mutated line:
+                 require(_stake.owner != msg.sender, "CALLER_NOT_STAKING_OWNER");
+
+
+Mutation:
+    File: /Users/rati/Projects/research/advanced_solidity/erc721-variations-contracts-foundry/src/NFTStaking.sol
+    Line nr: 109
+    Result: Lived
+    Original line:
+                 require(_stake.owner == msg.sender, "CALLER_NOT_STAKING_OWNER");
+
+    Mutated line:
+                 require(_stake.owner != msg.sender, "CALLER_NOT_STAKING_OWNER");
+
+
+Mutation:
+    File: /Users/rati/Projects/research/advanced_solidity/erc721-variations-contracts-foundry/src/NFTStaking.sol
+    Line nr: 131
+    Result: Lived
+    Original line:
+                 return _rewardPerDay * (10**IERC20Metadata(address(gameToken)).decimals());
+
+    Mutated line:
+                 return _rewardPerDay / (10**IERC20Metadata(address(gameToken)).decimals());
+
+
+Mutation:
+    File: /Users/rati/Projects/research/advanced_solidity/erc721-variations-contracts-foundry/src/NFTStaking.sol
+    Line nr: 153
+    Result: Lived
+    Original line:
+                 uint256 timeSinceDeposit = block.timestamp - depositTimestamp;
+
+    Mutated line:
+                 uint256 timeSinceDeposit = block.timestamp + depositTimestamp;
+
+
+Mutation:
+    File: /Users/rati/Projects/research/advanced_solidity/erc721-variations-contracts-foundry/src/NFTStaking.sol
+    Line nr: 154
+    Result: Lived
+    Original line:
+                 uint256 calculatedRewards = (timeSinceDeposit * rewardPerDay() ) / 1 days;
+
+    Mutated line:
+                 uint256 calculatedRewards = (timeSinceDeposit * rewardPerDay() ) * 1 days;
+
+
+Mutation:
+    File: /Users/rati/Projects/research/advanced_solidity/erc721-variations-contracts-foundry/src/NFTStaking.sol
+    Line nr: 154
+    Result: Lived
+    Original line:
+                 uint256 calculatedRewards = (timeSinceDeposit * rewardPerDay() ) / 1 days;
+
+    Mutated line:
+                 uint256 calculatedRewards = (timeSinceDeposit / rewardPerDay() ) / 1 days;
+
+
+Mutation:
+    File: /Users/rati/Projects/research/advanced_solidity/erc721-variations-contracts-foundry/src/NFTStaking.sol
+    Line nr: 71
+    Result: Lived
+    Original line:
+             function stakeNFT(uint256 tokenId) external onlyNFTOwner(tokenId) {
+
+    Mutated line:
+             function stakeNFT(uint256 tokenId) external  {
+
+
+Mutation:
+    File: /Users/rati/Projects/research/advanced_solidity/erc721-variations-contracts-foundry/src/NFTStaking.sol
+    Line nr: 124
+    Result: Lived
+    Original line:
+             function setRewardPerDay(uint256 _rewardAmount) external onlyOwner {
+
+    Mutated line:
+             function setRewardPerDay(uint256 _rewardAmount) external  {
+
+
+Mutation:
+    File: /Users/rati/Projects/research/advanced_solidity/erc721-variations-contracts-foundry/src/ERC721Presale.sol
+    Line nr: 61
+    Result: Lived
+    Original line:
+                 if (to == address(this)) revert Errors.NotThis();
+
+    Mutated line:
+                 if (to != address(this)) revert Errors.NotThis();
+
+
+Mutation:
+    File: /Users/rati/Projects/research/advanced_solidity/erc721-variations-contracts-foundry/src/ERC721Presale.sol
+    Line nr: 62
+    Result: Lived
+    Original line:
+                 require (tokenId<MAX_SUPPLY, "EXCEEDS_MAX_SUPPLY");
+
+    Mutated line:
+                 require (tokenId <= MAX_SUPPLY, "EXCEEDS_MAX_SUPPLY");
+
+
+Mutation:
+    File: /Users/rati/Projects/research/advanced_solidity/erc721-variations-contracts-foundry/src/ERC721Presale.sol
+    Line nr: 90
+    Result: Lived
+    Original line:
+                 return super.supportsInterface(id) || id == 0x2a55205a; /// 0x2a55205a is ERC2981 (royalty standard)
+
+    Mutated line:
+                 return super.supportsInterface(id) || id != 0x2a55205a; /// 0x2a55205a is ERC2981 (royalty standard)
+
+
+Mutation:
+    File: /Users/rati/Projects/research/advanced_solidity/erc721-variations-contracts-foundry/src/ERC721Presale.sol
+    Line nr: 45
+    Result: Lived
+    Original line:
+                 if (_owner != msg.sender) revert Errors.NotAuthorized(msg.sender);
+
+    Mutated line:
+                 if (_owner == msg.sender) revert Errors.NotAuthorized(msg.sender);
+
+
+Mutation:
+    File: /Users/rati/Projects/research/advanced_solidity/erc721-variations-contracts-foundry/src/ERC721Presale.sol
+    Line nr: 51
+    Result: Lived
+    Original line:
+                 if (_minter != msg.sender) revert Errors.NotAuthorized(msg.sender);
+
+    Mutated line:
+                 if (_minter == msg.sender) revert Errors.NotAuthorized(msg.sender);
+
+
+Mutation:
+    File: /Users/rati/Projects/research/advanced_solidity/erc721-variations-contracts-foundry/src/ERC721Presale.sol
+    Line nr: 61
+    Result: Lived
+    Original line:
+                 if (to == address(this)) revert Errors.NotThis();
+
+    Mutated line:
+                 if (to != address(this)) revert Errors.NotThis();
+
+
+Mutation:
+    File: /Users/rati/Projects/research/advanced_solidity/erc721-variations-contracts-foundry/src/ERC721Presale.sol
+    Line nr: 62
+    Result: Lived
+    Original line:
+                 require (tokenId<MAX_SUPPLY, "EXCEEDS_MAX_SUPPLY");
+
+    Mutated line:
+                 require (tokenId >= MAX_SUPPLY, "EXCEEDS_MAX_SUPPLY");
+
+
+Mutation:
+    File: /Users/rati/Projects/research/advanced_solidity/erc721-variations-contracts-foundry/src/ERC721Presale.sol
+    Line nr: 90
+    Result: Lived
+    Original line:
+                 return super.supportsInterface(id) || id == 0x2a55205a; /// 0x2a55205a is ERC2981 (royalty standard)
+
+    Mutated line:
+                 return super.supportsInterface(id) || id != 0x2a55205a; /// 0x2a55205a is ERC2981 (royalty standard)
+
+
+Mutation:
+    File: /Users/rati/Projects/research/advanced_solidity/erc721-variations-contracts-foundry/src/ERC721Presale.sol
+    Line nr: 109
+    Result: Lived
+    Original line:
+                 royaltyAmount = (salePrice * uint256(_royalty.per10Thousands)) / 10000;
+
+    Mutated line:
+                 royaltyAmount = (salePrice * uint256(_royalty.per10Thousands)) * 10000;
+
+
+Mutation:
+    File: /Users/rati/Projects/research/advanced_solidity/erc721-variations-contracts-foundry/src/ERC721Presale.sol
+    Line nr: 109
+    Result: Lived
+    Original line:
+                 royaltyAmount = (salePrice * uint256(_royalty.per10Thousands)) / 10000;
+
+    Mutated line:
+                 royaltyAmount = (salePrice / uint256(_royalty.per10Thousands)) / 10000;
+
+
+Mutation:
+    File: /Users/rati/Projects/research/advanced_solidity/erc721-variations-contracts-foundry/src/ERC721Presale.sol
+    Line nr: 64
+    Result: Lived
+    Original line:
+                 _safeMint(to, tokenId);
+
+    Mutated line:
+                 
+
+
+Mutation:
+    File: /Users/rati/Projects/research/advanced_solidity/erc721-variations-contracts-foundry/src/ERC721Presale.sol
+    Line nr: 38
+    Result: Error
+    Original line:
+             ) ERC721(_name, _symbol) Minter2StepRoles(initialOwner,initialMinter) {
+
+    Mutated line:
+             )  Minter2StepRoles(initialOwner,initialMinter) {
+
+
+Mutation:
+    File: /Users/rati/Projects/research/advanced_solidity/erc721-variations-contracts-foundry/src/ERC721Presale.sol
+    Line nr: 38
+    Result: Error
+    Original line:
+             ) ERC721(_name, _symbol) Minter2StepRoles(initialOwner,initialMinter) {
+
+    Mutated line:
+             ) ERC721(_name, _symbol)  {
+
+
+Mutation:
+    File: /Users/rati/Projects/research/advanced_solidity/erc721-variations-contracts-foundry/src/ERC721Presale.sol
+    Line nr: 60
+    Result: Lived
+    Original line:
+             function safeMint( uint256 tokenId, address to) external onlyMinter {
+
+    Mutated line:
+             function safeMint( uint256 tokenId, address to) external  {
+
+
+Mutation:
+    File: /Users/rati/Projects/research/advanced_solidity/erc721-variations-contracts-foundry/src/ERC721Presale.sol
+    Line nr: 72
+    Result: Lived
+    Original line:
+             function setRoyaltyParameters(address newReceiver, uint96 royaltyPer10Thousands) external onlyOwner {
+
+    Mutated line:
+             function setRoyaltyParameters(address newReceiver, uint96 royaltyPer10Thousands) external  {
+
+
+Mutation:
+    File: /Users/rati/Projects/research/advanced_solidity/erc721-variations-contracts-foundry/src/roles/Minter2StepRoles.sol
+    Line nr: 32
+    Result: Killed
+    Original line:
+                 if (initialOwner == address(0)) revert Errors.ZeroAddressNotAllowed();
+
+    Mutated line:
+                 if (initialOwner != address(0)) revert Errors.ZeroAddressNotAllowed();
+
+
+Mutation:
+    File: /Users/rati/Projects/research/advanced_solidity/erc721-variations-contracts-foundry/src/roles/Minter2StepRoles.sol
+    Line nr: 33
+    Result: Killed
+    Original line:
+                 if (initialMinter == address(0)) revert Errors.ZeroAddressNotAllowed();
+
+    Mutated line:
+                 if (initialMinter != address(0)) revert Errors.ZeroAddressNotAllowed();
+
+
+Mutation:
+    File: /Users/rati/Projects/research/advanced_solidity/erc721-variations-contracts-foundry/src/roles/Minter2StepRoles.sol
+    Line nr: 32
+    Result: Killed
+    Original line:
+                 if (initialOwner == address(0)) revert Errors.ZeroAddressNotAllowed();
+
+    Mutated line:
+                 if (initialOwner != address(0)) revert Errors.ZeroAddressNotAllowed();
+
+
+Mutation:
+    File: /Users/rati/Projects/research/advanced_solidity/erc721-variations-contracts-foundry/src/roles/Minter2StepRoles.sol
+    Line nr: 33
+    Result: Killed
+    Original line:
+                 if (initialMinter == address(0)) revert Errors.ZeroAddressNotAllowed();
+
+    Mutated line:
+                 if (initialMinter != address(0)) revert Errors.ZeroAddressNotAllowed();
+
+
+Mutation:
+    File: /Users/rati/Projects/research/advanced_solidity/erc721-variations-contracts-foundry/src/roles/Minter2StepRoles.sol
+    Line nr: 46
+    Result: Lived
+    Original line:
+                 if (_owner != msg.sender) revert Errors.NotAuthorized(msg.sender);
+
+    Mutated line:
+                 if (_owner == msg.sender) revert Errors.NotAuthorized(msg.sender);
+
+
+Mutation:
+    File: /Users/rati/Projects/research/advanced_solidity/erc721-variations-contracts-foundry/src/roles/Minter2StepRoles.sol
+    Line nr: 57
+    Result: Lived
+    Original line:
+                 if (_pendingOwner != msg.sender) revert Errors.NotAuthorized(msg.sender);
+
+    Mutated line:
+                 if (_pendingOwner == msg.sender) revert Errors.NotAuthorized(msg.sender);
+
+
+Mutation:
+    File: /Users/rati/Projects/research/advanced_solidity/erc721-variations-contracts-foundry/src/roles/Minter2StepRoles.sol
+    Line nr: 71
+    Result: Lived
+    Original line:
+                 if ( (_minter != msg.sender) && (_owner != msg.sender) ) revert Errors.NotAuthorized(msg.sender);
+
+    Mutated line:
+                 if ( (_minter == msg.sender) && (_owner != msg.sender) ) revert Errors.NotAuthorized(msg.sender);
+
+
+Mutation:
+    File: /Users/rati/Projects/research/advanced_solidity/erc721-variations-contracts-foundry/src/roles/Minter2StepRoles.sol
+    Line nr: 71
+    Result: Lived
+    Original line:
+                 if ( (_minter != msg.sender) && (_owner != msg.sender) ) revert Errors.NotAuthorized(msg.sender);
+
+    Mutated line:
+                 if ( (_minter != msg.sender) && (_owner == msg.sender) ) revert Errors.NotAuthorized(msg.sender);
+
+
+Mutation:
+    File: /Users/rati/Projects/research/advanced_solidity/erc721-variations-contracts-foundry/src/ERC721Game.sol
+    Line nr: 44
+    Result: Killed
+    Original line:
+                 if (to == address(this)) revert Errors.NotThis();
+
+    Mutated line:
+                 if (to != address(this)) revert Errors.NotThis();
+
+
+Mutation:
+    File: /Users/rati/Projects/research/advanced_solidity/erc721-variations-contracts-foundry/src/ERC721Game.sol
+    Line nr: 46
+    Result: Killed
+    Original line:
+                 require (tokenId<MAX_SUPPLY, "EXCEEDS_MAX_SUPPLY");
+
+    Mutated line:
+                 require (tokenId <= MAX_SUPPLY, "EXCEEDS_MAX_SUPPLY");
+
+
+Mutation:
+    File: /Users/rati/Projects/research/advanced_solidity/erc721-variations-contracts-foundry/src/ERC721Game.sol
+    Line nr: 54
+    Result: Killed
+    Original line:
+                 require (tokenId<MAX_SUPPLY, "EXCEEDS_MAX_SUPPLY");
+
+    Mutated line:
+                 require (tokenId <= MAX_SUPPLY, "EXCEEDS_MAX_SUPPLY");
+
+
+Mutation:
+    File: /Users/rati/Projects/research/advanced_solidity/erc721-variations-contracts-foundry/src/ERC721Game.sol
+    Line nr: 33
+    Result: Killed
+    Original line:
+                 if (_owner != msg.sender) revert Errors.NotAuthorized(msg.sender);
+
+    Mutated line:
+                 if (_owner == msg.sender) revert Errors.NotAuthorized(msg.sender);
+
+
+Mutation:
+    File: /Users/rati/Projects/research/advanced_solidity/erc721-variations-contracts-foundry/src/ERC721Game.sol
+    Line nr: 39
+    Result: Killed
+    Original line:
+                 if (_minter != msg.sender) revert Errors.NotAuthorized(msg.sender);
+
+    Mutated line:
+                 if (_minter == msg.sender) revert Errors.NotAuthorized(msg.sender);
+
+
+Mutation:
+    File: /Users/rati/Projects/research/advanced_solidity/erc721-variations-contracts-foundry/src/ERC721Game.sol
+    Line nr: 44
+    Result: Killed
+    Original line:
+                 if (to == address(this)) revert Errors.NotThis();
+
+    Mutated line:
+                 if (to != address(this)) revert Errors.NotThis();
+
+
+Mutation:
+    File: /Users/rati/Projects/research/advanced_solidity/erc721-variations-contracts-foundry/src/ERC721Game.sol
+    Line nr: 46
+    Result: Killed
+    Original line:
+                 require (tokenId<MAX_SUPPLY, "EXCEEDS_MAX_SUPPLY");
+
+    Mutated line:
+                 require (tokenId >= MAX_SUPPLY, "EXCEEDS_MAX_SUPPLY");
+
+
+Mutation:
+    File: /Users/rati/Projects/research/advanced_solidity/erc721-variations-contracts-foundry/src/ERC721Game.sol
+    Line nr: 54
+    Result: Killed
+    Original line:
+                 require (tokenId<MAX_SUPPLY, "EXCEEDS_MAX_SUPPLY");
+
+    Mutated line:
+                 require (tokenId >= MAX_SUPPLY, "EXCEEDS_MAX_SUPPLY");
+
+
+Mutation:
+    File: /Users/rati/Projects/research/advanced_solidity/erc721-variations-contracts-foundry/src/ERC721Game.sol
+    Line nr: 49
+    Result: Killed
+    Original line:
+                 _safeMint(to, tokenId);
+
+    Mutated line:
+                 
+
+
+Mutation:
+    File: /Users/rati/Projects/research/advanced_solidity/erc721-variations-contracts-foundry/src/ERC721Game.sol
+    Line nr: 57
+    Result: Killed
+    Original line:
+                 _mint(to,tokenId);
+
+    Mutated line:
+                 
+
+
+Mutation:
+    File: /Users/rati/Projects/research/advanced_solidity/erc721-variations-contracts-foundry/src/ERC721Game.sol
+    Line nr: 28
+    Result: Error
+    Original line:
+             ) ERC721(_name, _symbol) Minter2StepRoles(initialOwner,initialMinter) {
+
+    Mutated line:
+             )  Minter2StepRoles(initialOwner,initialMinter) {
+
+
+Mutation:
+    File: /Users/rati/Projects/research/advanced_solidity/erc721-variations-contracts-foundry/src/ERC721Game.sol
+    Line nr: 28
+    Result: Error
+    Original line:
+             ) ERC721(_name, _symbol) Minter2StepRoles(initialOwner,initialMinter) {
+
+    Mutated line:
+             ) ERC721(_name, _symbol)  {
+
+
+Mutation:
+    File: /Users/rati/Projects/research/advanced_solidity/erc721-variations-contracts-foundry/src/ERC721Game.sol
+    Line nr: 43
+    Result: Killed
+    Original line:
+             function safeMint(address to) public onlyMinter {
+
+    Mutated line:
+             function safeMint(address to) public  {
+
+
+Mutation:
+    File: /Users/rati/Projects/research/advanced_solidity/erc721-variations-contracts-foundry/src/ERC721Game.sol
+    Line nr: 52
+    Result: Killed
+    Original line:
+             function ownerMint( address to) external onlyOwner {
+
+    Mutated line:
+             function ownerMint( address to) external  {
+
+
+Mutation:
+    File: /Users/rati/Projects/research/advanced_solidity/erc721-variations-contracts-foundry/src/ERC20Game.sol
+    Line nr: 28
+    Result: Lived
+    Original line:
+                 if (_owner != msg.sender) revert Errors.NotAuthorized(msg.sender);
+
+    Mutated line:
+                 if (_owner == msg.sender) revert Errors.NotAuthorized(msg.sender);
+
+
+Mutation:
+    File: /Users/rati/Projects/research/advanced_solidity/erc721-variations-contracts-foundry/src/ERC20Game.sol
+    Line nr: 34
+    Result: Lived
+    Original line:
+                 if (_minter != msg.sender) revert Errors.NotAuthorized(msg.sender);
+
+    Mutated line:
+                 if (_minter == msg.sender) revert Errors.NotAuthorized(msg.sender);
+
+
+Mutation:
+    File: /Users/rati/Projects/research/advanced_solidity/erc721-variations-contracts-foundry/src/ERC20Game.sol
+    Line nr: 44
+    Result: Lived
+    Original line:
+                 _mint(to, amount);
+
+    Mutated line:
+                 
+
+
+Mutation:
+    File: /Users/rati/Projects/research/advanced_solidity/erc721-variations-contracts-foundry/src/ERC20Game.sol
+    Line nr: 24
+    Result: Error
+    Original line:
+             ) ERC20(_name, _symbol) Minter2StepRoles(initialOwner,initialMinter) {
+
+    Mutated line:
+             )  Minter2StepRoles(initialOwner,initialMinter) {
+
+
+Mutation:
+    File: /Users/rati/Projects/research/advanced_solidity/erc721-variations-contracts-foundry/src/ERC20Game.sol
+    Line nr: 24
+    Result: Error
+    Original line:
+             ) ERC20(_name, _symbol) Minter2StepRoles(initialOwner,initialMinter) {
+
+    Mutated line:
+             ) ERC20(_name, _symbol)  {
+
+
+Mutation:
+    File: /Users/rati/Projects/research/advanced_solidity/erc721-variations-contracts-foundry/src/ERC20Game.sol
+    Line nr: 43
+    Result: Lived
+    Original line:
+             function mint(address to, uint256 amount) external onlyMinter {
+
+    Mutated line:
+             function mint(address to, uint256 amount) external  {
+
+
+Mutation:
+    File: /Users/rati/Projects/research/advanced_solidity/erc721-variations-contracts-foundry/src/FixedPricePreSale.sol
+    Line nr: 73
+    Result: Lived
+    Original line:
+                 if (block.timestamp < _whitelistEndTime) {
+
+    Mutated line:
+                 if (block.timestamp <= _whitelistEndTime) {
+
+
+Mutation:
+    File: /Users/rati/Projects/research/advanced_solidity/erc721-variations-contracts-foundry/src/FixedPricePreSale.sol
+    Line nr: 102
+    Result: Lived
+    Original line:
+                 if (msg.value > expectedValue) {
+
+    Mutated line:
+                 if (msg.value >= expectedValue) {
+
+
+Mutation:
+    File: /Users/rati/Projects/research/advanced_solidity/erc721-variations-contracts-foundry/src/FixedPricePreSale.sol
+    Line nr: 106
+    Result: Lived
+    Original line:
+                 if (expectedValue > 0) {
+
+    Mutated line:
+                 if (expectedValue >= 0) {
+
+
+Mutation:
+    File: /Users/rati/Projects/research/advanced_solidity/erc721-variations-contracts-foundry/src/FixedPricePreSale.sol
+    Line nr: 64
+    Result: Lived
+    Original line:
+                 require(block.timestamp >= _whitelistEndTime, "REQUIRE_ALLOWANCE_OR_WAIT");
+
+    Mutated line:
+                 require(block.timestamp < _whitelistEndTime, "REQUIRE_ALLOWANCE_OR_WAIT");
+
+
+Mutation:
+    File: /Users/rati/Projects/research/advanced_solidity/erc721-variations-contracts-foundry/src/FixedPricePreSale.sol
+    Line nr: 73
+    Result: Lived
+    Original line:
+                 if (block.timestamp < _whitelistEndTime) {
+
+    Mutated line:
+                 if (block.timestamp >= _whitelistEndTime) {
+
+
+Mutation:
+    File: /Users/rati/Projects/research/advanced_solidity/erc721-variations-contracts-foundry/src/FixedPricePreSale.sol
+    Line nr: 98
+    Result: Lived
+    Original line:
+                 require(block.timestamp >= _startTime, "SALE_NOT_STARTED");
+
+    Mutated line:
+                 require(block.timestamp < _startTime, "SALE_NOT_STARTED");
+
+
+Mutation:
+    File: /Users/rati/Projects/research/advanced_solidity/erc721-variations-contracts-foundry/src/FixedPricePreSale.sol
+    Line nr: 99
+    Result: Lived
+    Original line:
+                 uint256 expectedValue = block.timestamp >= _whitelistEndTime ? _price : _whitelistPrice;
+
+    Mutated line:
+                 uint256 expectedValue = block.timestamp < _whitelistEndTime ? _price : _whitelistPrice;
+
+
+Mutation:
+    File: /Users/rati/Projects/research/advanced_solidity/erc721-variations-contracts-foundry/src/FixedPricePreSale.sol
+    Line nr: 100
+    Result: Lived
+    Original line:
+                 require(msg.value >= expectedValue, "NOT_ENOUGH");
+
+    Mutated line:
+                 require(msg.value < expectedValue, "NOT_ENOUGH");
+
+
+Mutation:
+    File: /Users/rati/Projects/research/advanced_solidity/erc721-variations-contracts-foundry/src/FixedPricePreSale.sol
+    Line nr: 102
+    Result: Lived
+    Original line:
+                 if (msg.value > expectedValue) {
+
+    Mutated line:
+                 if (msg.value <= expectedValue) {
+
+
+Mutation:
+    File: /Users/rati/Projects/research/advanced_solidity/erc721-variations-contracts-foundry/src/FixedPricePreSale.sol
+    Line nr: 106
+    Result: Lived
+    Original line:
+                 if (expectedValue > 0) {
+
+    Mutated line:
+                 if (expectedValue <= 0) {
+
+
+Mutation:
+    File: /Users/rati/Projects/research/advanced_solidity/erc721-variations-contracts-foundry/src/FixedPricePreSale.sol
+    Line nr: 103
+    Result: Lived
+    Original line:
+                     payable(msg.sender).transfer(msg.value - expectedValue);
+
+    Mutated line:
+                     payable(msg.sender).transfer(msg.value + expectedValue);
+
+
+Mutation:
+    File: /Users/rati/Projects/research/advanced_solidity/erc721-variations-contracts-foundry/src/FixedPricePreSale.sol
+    Line nr: 65
+    Result: Lived
+    Original line:
+                 _payAndMint(tokenId, to);
+
+    Mutated line:
+                 
+
+
+Mutation:
+    File: /Users/rati/Projects/research/advanced_solidity/erc721-variations-contracts-foundry/src/FixedPricePreSale.sol
+    Line nr: 74
+    Result: Lived
+    Original line:
+                     _useAllowanceIfAvailable(tokenId);
+
+    Mutated line:
+                     
+
+
+Mutation:
+    File: /Users/rati/Projects/research/advanced_solidity/erc721-variations-contracts-foundry/src/FixedPricePreSale.sol
+    Line nr: 81
+    Result: Lived
+    Original line:
+                 _payAndMint(tokenId, to);
+
+    Mutated line:
+                 
+
+
