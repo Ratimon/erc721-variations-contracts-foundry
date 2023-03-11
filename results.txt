@@ -1,12 +1,12 @@
 Mutation testing report:
 Number of mutations:    84
-Killed:                 16 / 84
+Killed:                 46 / 84
 
 Mutations:
 Mutation:
     File: /Users/rati/Projects/research/advanced_solidity/erc721-variations-contracts-foundry/src/ERC721EnumerableCollection.sol
     Line nr: 31
-    Result: Lived
+    Result: Killed
     Original line:
                  require(_tokenIdCounter.current() == 1, "INITIAL_TOKEN_ID_MUST_BE_ONE");
 
@@ -50,7 +50,7 @@ Mutation:
 Mutation:
     File: /Users/rati/Projects/research/advanced_solidity/erc721-variations-contracts-foundry/src/ERC721EnumerableCollection.sol
     Line nr: 31
-    Result: Lived
+    Result: Killed
     Original line:
                  require(_tokenIdCounter.current() == 1, "INITIAL_TOKEN_ID_MUST_BE_ONE");
 
@@ -61,7 +61,7 @@ Mutation:
 Mutation:
     File: /Users/rati/Projects/research/advanced_solidity/erc721-variations-contracts-foundry/src/ERC721EnumerableCollection.sol
     Line nr: 36
-    Result: Lived
+    Result: Killed
     Original line:
                  if (_owner != msg.sender) revert Errors.NotAuthorized(msg.sender);
 
@@ -105,7 +105,7 @@ Mutation:
 Mutation:
     File: /Users/rati/Projects/research/advanced_solidity/erc721-variations-contracts-foundry/src/ERC721EnumerableCollection.sol
     Line nr: 57
-    Result: Lived
+    Result: Killed
     Original line:
                  require (tokenId<MAX_SUPPLY, "EXCEEDS_MAX_SUPPLY");
 
@@ -127,7 +127,7 @@ Mutation:
 Mutation:
     File: /Users/rati/Projects/research/advanced_solidity/erc721-variations-contracts-foundry/src/ERC721EnumerableCollection.sol
     Line nr: 60
-    Result: Lived
+    Result: Killed
     Original line:
                  _mint(to,tokenId);
 
@@ -182,7 +182,7 @@ Mutation:
 Mutation:
     File: /Users/rati/Projects/research/advanced_solidity/erc721-variations-contracts-foundry/src/NFTStaking.sol
     Line nr: 88
-    Result: Lived
+    Result: Killed
     Original line:
                  require(_stake.owner == msg.sender, "CALLER_NOT_STAKING_OWNER");
 
@@ -193,7 +193,7 @@ Mutation:
 Mutation:
     File: /Users/rati/Projects/research/advanced_solidity/erc721-variations-contracts-foundry/src/NFTStaking.sol
     Line nr: 109
-    Result: Lived
+    Result: Killed
     Original line:
                  require(_stake.owner == msg.sender, "CALLER_NOT_STAKING_OWNER");
 
@@ -204,7 +204,7 @@ Mutation:
 Mutation:
     File: /Users/rati/Projects/research/advanced_solidity/erc721-variations-contracts-foundry/src/NFTStaking.sol
     Line nr: 63
-    Result: Lived
+    Result: Killed
     Original line:
                  if (gameNFT.ownerOf(_tokenId) != msg.sender) revert Errors.NotAuthorized(msg.sender);
 
@@ -215,7 +215,7 @@ Mutation:
 Mutation:
     File: /Users/rati/Projects/research/advanced_solidity/erc721-variations-contracts-foundry/src/NFTStaking.sol
     Line nr: 88
-    Result: Lived
+    Result: Killed
     Original line:
                  require(_stake.owner == msg.sender, "CALLER_NOT_STAKING_OWNER");
 
@@ -226,7 +226,7 @@ Mutation:
 Mutation:
     File: /Users/rati/Projects/research/advanced_solidity/erc721-variations-contracts-foundry/src/NFTStaking.sol
     Line nr: 109
-    Result: Lived
+    Result: Killed
     Original line:
                  require(_stake.owner == msg.sender, "CALLER_NOT_STAKING_OWNER");
 
@@ -237,7 +237,7 @@ Mutation:
 Mutation:
     File: /Users/rati/Projects/research/advanced_solidity/erc721-variations-contracts-foundry/src/NFTStaking.sol
     Line nr: 131
-    Result: Lived
+    Result: Killed
     Original line:
                  return _rewardPerDay * (10**IERC20Metadata(address(gameToken)).decimals());
 
@@ -248,7 +248,7 @@ Mutation:
 Mutation:
     File: /Users/rati/Projects/research/advanced_solidity/erc721-variations-contracts-foundry/src/NFTStaking.sol
     Line nr: 153
-    Result: Lived
+    Result: Killed
     Original line:
                  uint256 timeSinceDeposit = block.timestamp - depositTimestamp;
 
@@ -259,7 +259,7 @@ Mutation:
 Mutation:
     File: /Users/rati/Projects/research/advanced_solidity/erc721-variations-contracts-foundry/src/NFTStaking.sol
     Line nr: 154
-    Result: Lived
+    Result: Killed
     Original line:
                  uint256 calculatedRewards = (timeSinceDeposit * rewardPerDay() ) / 1 days;
 
@@ -270,7 +270,7 @@ Mutation:
 Mutation:
     File: /Users/rati/Projects/research/advanced_solidity/erc721-variations-contracts-foundry/src/NFTStaking.sol
     Line nr: 154
-    Result: Lived
+    Result: Killed
     Original line:
                  uint256 calculatedRewards = (timeSinceDeposit * rewardPerDay() ) / 1 days;
 
@@ -281,7 +281,7 @@ Mutation:
 Mutation:
     File: /Users/rati/Projects/research/advanced_solidity/erc721-variations-contracts-foundry/src/NFTStaking.sol
     Line nr: 71
-    Result: Lived
+    Result: Killed
     Original line:
              function stakeNFT(uint256 tokenId) external onlyNFTOwner(tokenId) {
 
@@ -303,7 +303,7 @@ Mutation:
 Mutation:
     File: /Users/rati/Projects/research/advanced_solidity/erc721-variations-contracts-foundry/src/ERC721Presale.sol
     Line nr: 61
-    Result: Lived
+    Result: Killed
     Original line:
                  if (to == address(this)) revert Errors.NotThis();
 
@@ -347,7 +347,7 @@ Mutation:
 Mutation:
     File: /Users/rati/Projects/research/advanced_solidity/erc721-variations-contracts-foundry/src/ERC721Presale.sol
     Line nr: 51
-    Result: Lived
+    Result: Killed
     Original line:
                  if (_minter != msg.sender) revert Errors.NotAuthorized(msg.sender);
 
@@ -358,7 +358,7 @@ Mutation:
 Mutation:
     File: /Users/rati/Projects/research/advanced_solidity/erc721-variations-contracts-foundry/src/ERC721Presale.sol
     Line nr: 61
-    Result: Lived
+    Result: Killed
     Original line:
                  if (to == address(this)) revert Errors.NotThis();
 
@@ -369,7 +369,7 @@ Mutation:
 Mutation:
     File: /Users/rati/Projects/research/advanced_solidity/erc721-variations-contracts-foundry/src/ERC721Presale.sol
     Line nr: 62
-    Result: Lived
+    Result: Killed
     Original line:
                  require (tokenId<MAX_SUPPLY, "EXCEEDS_MAX_SUPPLY");
 
@@ -413,7 +413,7 @@ Mutation:
 Mutation:
     File: /Users/rati/Projects/research/advanced_solidity/erc721-variations-contracts-foundry/src/ERC721Presale.sol
     Line nr: 64
-    Result: Lived
+    Result: Killed
     Original line:
                  _safeMint(to, tokenId);
 
@@ -721,7 +721,7 @@ Mutation:
 Mutation:
     File: /Users/rati/Projects/research/advanced_solidity/erc721-variations-contracts-foundry/src/ERC20Game.sol
     Line nr: 34
-    Result: Lived
+    Result: Killed
     Original line:
                  if (_minter != msg.sender) revert Errors.NotAuthorized(msg.sender);
 
@@ -732,7 +732,7 @@ Mutation:
 Mutation:
     File: /Users/rati/Projects/research/advanced_solidity/erc721-variations-contracts-foundry/src/ERC20Game.sol
     Line nr: 44
-    Result: Lived
+    Result: Killed
     Original line:
                  _mint(to, amount);
 
@@ -820,7 +820,7 @@ Mutation:
 Mutation:
     File: /Users/rati/Projects/research/advanced_solidity/erc721-variations-contracts-foundry/src/FixedPricePreSale.sol
     Line nr: 73
-    Result: Lived
+    Result: Killed
     Original line:
                  if (block.timestamp < _whitelistEndTime) {
 
@@ -831,7 +831,7 @@ Mutation:
 Mutation:
     File: /Users/rati/Projects/research/advanced_solidity/erc721-variations-contracts-foundry/src/FixedPricePreSale.sol
     Line nr: 98
-    Result: Lived
+    Result: Killed
     Original line:
                  require(block.timestamp >= _startTime, "SALE_NOT_STARTED");
 
@@ -842,7 +842,7 @@ Mutation:
 Mutation:
     File: /Users/rati/Projects/research/advanced_solidity/erc721-variations-contracts-foundry/src/FixedPricePreSale.sol
     Line nr: 99
-    Result: Lived
+    Result: Killed
     Original line:
                  uint256 expectedValue = block.timestamp >= _whitelistEndTime ? _price : _whitelistPrice;
 
@@ -853,7 +853,7 @@ Mutation:
 Mutation:
     File: /Users/rati/Projects/research/advanced_solidity/erc721-variations-contracts-foundry/src/FixedPricePreSale.sol
     Line nr: 100
-    Result: Lived
+    Result: Killed
     Original line:
                  require(msg.value >= expectedValue, "NOT_ENOUGH");
 
@@ -864,7 +864,7 @@ Mutation:
 Mutation:
     File: /Users/rati/Projects/research/advanced_solidity/erc721-variations-contracts-foundry/src/FixedPricePreSale.sol
     Line nr: 102
-    Result: Lived
+    Result: Killed
     Original line:
                  if (msg.value > expectedValue) {
 
@@ -886,7 +886,7 @@ Mutation:
 Mutation:
     File: /Users/rati/Projects/research/advanced_solidity/erc721-variations-contracts-foundry/src/FixedPricePreSale.sol
     Line nr: 103
-    Result: Lived
+    Result: Killed
     Original line:
                      payable(msg.sender).transfer(msg.value - expectedValue);
 
@@ -908,7 +908,7 @@ Mutation:
 Mutation:
     File: /Users/rati/Projects/research/advanced_solidity/erc721-variations-contracts-foundry/src/FixedPricePreSale.sol
     Line nr: 74
-    Result: Lived
+    Result: Killed
     Original line:
                      _useAllowanceIfAvailable(tokenId);
 
@@ -919,7 +919,7 @@ Mutation:
 Mutation:
     File: /Users/rati/Projects/research/advanced_solidity/erc721-variations-contracts-foundry/src/FixedPricePreSale.sol
     Line nr: 81
-    Result: Lived
+    Result: Killed
     Original line:
                  _payAndMint(tokenId, to);
 

@@ -34,6 +34,9 @@ snapshot-NFTStaking:
 coverage:
 	forge coverage --report lcov && genhtml lcov.info --branch-coverage --output-dir coverage
 
+mutation-test:
+	sudo python ../vertigo-rs/vertigo.py run --output results.txt
+
 slither-findings-ERC20Game:
 	slither src/ERC20Game.sol --solc-remaps "@openzeppelin/=lib/openzeppelin-contracts/ @main/=src/"
 
