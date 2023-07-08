@@ -20,10 +20,5 @@ To prioritize the vulnerabilities, we have adopted the scheme of five distinct l
 ## Detailed Results for FixedPricePreSale.sol
 
 
--  High : FixedPricePreSale._payAndMint(uint256,address) (src/FixedPricePreSale.sol#96-110) sends eth to arbitrary user
-	Dangerous calls:
-	- _saleRecipient.transfer(expectedValue) (src/FixedPricePreSale.sol#106)
-Reference: https://github.com/crytic/slither/wiki/Detector-Documentation#functions-that-send-ether-to-arbitrary-destinations
-
 - Informational : solc-0.8.19 is not recommended for deployment
 Reference: https://github.com/crytic/slither/wiki/Detector-Documentation#incorrect-versions-of-solidity

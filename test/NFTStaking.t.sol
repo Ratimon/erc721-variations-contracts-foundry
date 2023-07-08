@@ -191,7 +191,7 @@ contract TestFixedPricePreSale is ConstantsFixture {
         );
         ( address owner ,uint256 startTime ) = nftStaking.stakeInfo(tokenId);
 
-         uint256 currentTimestamp = block.timestamp;
+        uint256 currentTimestamp = block.timestamp;
 
         assertEq( owner, address(0) );
         assertApproxEqRel(startTime, currentTimestamp, 2 );

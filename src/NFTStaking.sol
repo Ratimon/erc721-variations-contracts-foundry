@@ -90,6 +90,8 @@ contract NFTStaking is IERC721Receiver, Ownable2Step {
 
         uint256 rewardAmount = calculateRewards(_stake.startTime);
 
+        // it is ok, but if a mapping or dynamic array is inside a struct, and the struct is deleted, the mapping or array will not be deleted.
+        // Also writing to storage pointers don’t save new data.
         delete stakes[tokenId];
         stakes[tokenId].startTime = block.timestamp;
 

@@ -34,6 +34,9 @@ snapshot-NFTStaking:
 coverage:
 	forge coverage --report lcov && genhtml lcov.info --branch-coverage --output-dir coverage
 
+coverage-debug:
+	forge coverage --report debug
+
 mutation-test:
 	sudo python ../vertigo-rs/vertigo.py run --output results.txt
 
